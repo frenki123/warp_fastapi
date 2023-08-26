@@ -34,13 +34,13 @@ filterwarnings = [
 ]
 
 [tool.coverage.run]
-source = ['fastapiez']
+source = ['warp_fastapi']
 branch = true
 context = '${CONTEXT}'
 
 [tool.coverage.paths]
 source = [
-    'fastapiez/'
+    'warp_fastapi/'
 ]
 
 [tool.coverage.report]
@@ -57,7 +57,7 @@ exclude_lines = [
 exclude = [".venv", ".pytest_chache", "__pycache__"]
 line-length = 120
 extend-select = ['Q', 'UP', 'I', 'W']
-isort = { known-first-party = ['fastapiez', 'tests'], combine-as-imports = true }
+isort = { known-first-party = ['warp_fastapi', 'tests'], combine-as-imports = true }
 flake8-quotes = {inline-quotes = 'single', multiline-quotes = 'double'}
 
 [tool.black]

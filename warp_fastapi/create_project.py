@@ -130,7 +130,7 @@ class ProjectCreator:
         env_template = """
 SQLALCHEMY_DATABASE_URL = "sqlite:///./database.db"
 """
-        dest.write_text(env_template)     
+        dest.write_text(env_template)
 
     def _generate_requirements_txt(self) -> None:
         file = self.project_dir / 'requirements.txt'

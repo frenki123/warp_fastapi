@@ -108,6 +108,7 @@ class Relationship(TemplateModel):
     Raises:
         RelationshipException: If the relationship type is `many_to_many`.
     """
+
     related_object: AppObject
     relationship_type: RelationshipType
     optional: bool = False
@@ -119,7 +120,6 @@ class Relationship(TemplateModel):
         type: RelationshipType,
         optional: bool = False,
     ) -> None:
-
         if type == many_to_many:
             raise RelationshipException(RelMsgErr.MANY_MANY_ERR)
         super().__init__(
@@ -142,6 +142,7 @@ class BackpopulatesRelationship(TemplateModel):
         back_populates_object (AppObject): The related object.
         optional (bool, optional): Whether the relationship is optional. Defaults to False.
     """
+
     related_object: AppObject
     relationship_type: RelationshipType
     optional: bool = False
@@ -165,6 +166,7 @@ class BackpopulatesRelationship(TemplateModel):
             back_populates_object=back_populates_object,
             back_populates_name=back_populates_name,
         )
+
 
 def create_relationship(
     name: str,
@@ -192,6 +194,7 @@ def create_relationship(
         return BackpopulatesRelationship(name, obj, type, back_populates_name, back_populates_object, optional)
     return Relationship(name, obj, type)
 
+
 # TODO:add name validation for these attributes
 class AppConfig(BaseModel):
     """
@@ -204,6 +207,7 @@ class AppConfig(BaseModel):
         plural (str | None): The plural form of the app name.
         plural_class_name (str | None): The plural class name for the app.
     """
+
     route_name: str | None = None
     table_name: str | None = None
     class_name: str | None = None
@@ -220,6 +224,7 @@ class AppObject(TemplateModel):
         back_populates_relationships (list[BackpopulatesRelationship]): The backpopulates relationships of the object.
         config (AppConfig): The configuration of the object.
     """
+
     attributes: list[Attribute]
     relationships: list[Relationship | BackpopulatesRelationship] = []
     back_populates_relationships: list[BackpopulatesRelationship] = []

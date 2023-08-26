@@ -47,7 +47,7 @@ class ServiceIdSearchFunc(AbstractFunctionCode):
         for rel in app_obj.all_relationships:
             name = app_obj.get_rel_name(rel)
             obj = app_obj.get_rel_obj(rel)
-            v1 = str(SimpleVariable(name, f"{config.read_schema(obj)}|None", 'None'))
+            v1 = str(SimpleVariable(name, f'{config.read_schema(obj)}|None', 'None'))
             search_fun = 'get_by_id'
             return_vars.append(name)
             if app_obj.is_relationship_many(rel):
