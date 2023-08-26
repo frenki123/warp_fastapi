@@ -1,3 +1,3 @@
-:::fastapiez.sqlalch_types
+:::warp_fastapi.sqlalch_types
 
 

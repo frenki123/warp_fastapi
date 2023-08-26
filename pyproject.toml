@@ -1,10 +1,18 @@
 [tool.poetry]
 name = "warp_fastapi"
-version = "0.1.beta"
+version = "0.1.beta1"
 description = "Create fastapi in a warp speed"
 authors = ["frenki123 <marko.frankola@gmail.com>"]
 license = "MIT"
 readme = "README.md"
+repository = "https://github.com/frenki123/warp_fastapi"
+documentation = "https://frenki123.github.io/warp_fastapi"
+keywords = ["fastapi", "code-generation", "SQLAlchemy"]
+classifiers = [
+    "Framework :: FastAPI",
+    "Topic :: Software Development :: Code Generators"
+]
+
 
 [tool.poetry.dependencies]
 python = "^3.11"

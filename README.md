@@ -1,4 +1,4 @@
-# Warp-FastApi Documentation
+# Warp FastApi Documentation
 
 ## Introduction
 
@@ -16,16 +16,18 @@ pip install warp-fastapi
 
 Prepare for liftoff into the Warp-FastApi universe by following these simple steps:
 
-1. **Beam Up Your Crew:** Assemble the core components of Warp-FastApi.
+### **Beam Up Your Crew:** 
+
+Assemble the core components of Warp-FastApi.
 
 ```
-from warp-fastapi import AppObject, Attribute, AppProject
-from warp-fastapi.sqlalch_types import string_type, int_type, date_only_type
-from warp-fastapi.relationships import one_to_many, one_to_one, many_to_many, many_to_one
-from warp-fastapi.create_project import ProjectCreator
+from warp_fastapi import AppObject, Attribute, AppProject
+from warp_fastapi.sqlalch_types import string_type, int_type, date_only_type
+from warp_fastapi.relationships import one_to_many, one_to_one, many_to_many, many_to_one
+from warp_fastapi.create_project import ProjectCreator
 ```
 
-2. **Warp-Define Attributes:**
+### **Warp-Define Attributes:**
 ```
 # Engage attributes
 a1 = Attribute("planet_name", string_type)
@@ -34,7 +36,7 @@ name = Attribute("ship_name", string_type)
 ```
 Define attributes with the precision of a star cartographer – each attribute corresponds to a specific celestial aspect. For more attribute types, refer to the SQL Types and Types documentation.
 
-3. **Launch Your App Spaceships:**
+### **Launch Your App Spaceships:**
 ```
 # Launch app spaceships
 planet = AppObject("planet", a1, a2)
@@ -45,15 +47,15 @@ Initiate AppObjects, the very vessels of your application – give them designat
 You can also establish an AppObject with attributes directly:
 ```
 alien = AppObject("alien", 
-                 Attribute("name", string_type), 
-                 Attribute("species", string_type), 
-                 Attribute("status", string_type, optional=True))
+                Attribute("name", string_type), 
+                Attribute("species", string_type), 
+                Attribute("status", string_type, optional=True))
 gadget = AppObject("gadget", 
-                  Attribute("name", string_type))
+                Attribute("name", string_type))
 ```
 And don't forget to pack the optional "status" attribute for those unpredictable extraterrestrial encounters.
 
-3. **Navigate the Star Systems – Add Starship Relations:**
+### **Navigate the Star Systems – Add Starship Relations:**
 ```
 planet.add_relationship(starship, one_to_many, "inhabited_by", "planet")
 starship.add_relationship(alien, one_to_many, "crew", "starship")
@@ -71,7 +73,8 @@ Potential relationship types encompass:
 - many_to_one: The reverse of one_to_many, resulting in the main object as many and the related object as one. The related object is equipped with a list of main objects.
 - many_to_many: A mutual relationship where both objects feature lists of the other. This intricate linkage is managed through an association table in SQLAlchemy.
 
-4. **Commence Warp Drive:** 
+
+### **Commence Warp Drive:** 
 ```
 # Set coordinates – AppObjects ready for warp
 project = AppProject("galactic_app", planet, starship, alien, gadget)
@@ -80,6 +83,18 @@ project = AppProject("galactic_app", planet, starship, alien, gadget)
 creator = ProjectCreator(project, project_dir=".")
 creator.create_project()  # Or use creator.update_project() for warp upgrades
 ```
+
+### **Explore New Discovery:**
+
+In your shell go to the folder where your code was generated (folder "galactic_app" inside your curent working folder). You need to run startup script which will create virutal enviroment, install requirments, refactor code with black and ruff, run pytest and mypy check, create initial database migration with alembic and run your app.
+
+Run the startup script from bash command line (use gitbash or linuxbash).
+
+```bash
+source startup.sh
+```
+
+You can go on and open your project at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs). Also check input in your shell to see coverage of the tests and passing of the mypy lint test.
 
 ## Conclusion
 

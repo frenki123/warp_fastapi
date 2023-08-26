@@ -1,13 +1,13 @@
-site_name: FastApiEZ Docs
+site_name: Warp FastAPI Docs
 
 plugins:
 - search
 - mkdocstrings
 
 markdown_extensions:
-- pymdownx.magiclink
-- pymdownx.snippets:
-    check_paths: true
+  - pymdownx.magiclink
+  - pymdownx.snippets:
+      check_paths: true
 
 theme:
   name: material
