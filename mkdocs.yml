@@ -1,0 +1,24 @@
+site_name: FastApiEZ Docs
+
+plugins:
+- search
+- mkdocstrings
+
+markdown_extensions:
+- pymdownx.magiclink
+- pymdownx.snippets:
+    check_paths: true
+
+theme:
+  name: material
+
+nav:
+  - Home: 'index.md'
+  - AppObject: 'AppObject.md'
+  - Attribute: 'Attribute.md'
+  - AppProject: 'AppProject.md'
+  - Types: 'Types.md'
+  - SQL tyes: 'SQL_Types.md'
+  - Relationship: 'Relationship.md'
+  - Future: 'todo.md'
+  - LICENSE: 'licences.md'

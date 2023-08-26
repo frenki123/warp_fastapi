@@ -1,0 +1,1 @@
+:::fastapiez.main.AppProject

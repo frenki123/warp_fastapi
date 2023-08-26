@@ -1,0 +1,74 @@
+[tool.poetry]
+name = "warp_fastapi"
+version = "0.1.beta"
+description = "Create fastapi in a warp speed"
+authors = ["frenki123 <marko.frankola@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pydantic = "^2.1.0"
+ordered-set = "^4.0.0"
+SQLAlchemy = "^2.0.0"
+
+[tool.poetry.group.dev.dependencies]
+mkdocstrings = "^0.22.0"
+mkdocs-material = "^9.1.21"
+black = "^23.7.0"
+ruff = "^0.0.282"
+pytest = "^7.4.0"
+pytest-cov = "^4.1.0"
+mkdocs = "^1.5.2"
+mypy = "^1.4.1"
+mkdocstrings-python = "^1.2.1"
+pymdown-extensions = "^10.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    'error'
+]
+
+[tool.coverage.run]
+source = ['fastapiez']
+branch = true
+context = '${CONTEXT}'
+
+[tool.coverage.paths]
+source = [
+    'fastapiez/'
+]
+
+[tool.coverage.report]
+precision = 2
+show_missing = true
+skip_covered = true
+exclude_lines = [
+    'pragma: no cover',
+    'raise NotImplementedError',
+    'if TYPE_CHECKING:',
+]
+
+[tool.ruff]
+exclude = [".venv", ".pytest_chache", "__pycache__"]
+line-length = 120
+extend-select = ['Q', 'UP', 'I', 'W']
+isort = { known-first-party = ['fastapiez', 'tests'], combine-as-imports = true }
+flake8-quotes = {inline-quotes = 'single', multiline-quotes = 'double'}
+
+[tool.black]
+line-length = 120
+target-version = ['py310']
+color = true
+skip-string-normalization = true
+
+[tool.mypy]
+strict = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disable_error_code = ["no-untyped-def"]
