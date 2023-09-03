@@ -1,7 +1,7 @@
 import pytest
 
 from warp_fastapi.code.code_objects.base import SimpleClassCode, SimpleDecoratorCode, SimpleFunctionCode, SimpleVariable
-from warp_fastapi.code.utils import ident_text
+from warp_fastapi.code.utils import ident_text, get_module_str
 
 
 def test_ident_text():
@@ -19,6 +19,29 @@ other text
     print(t2)
     assert t_ident == t2
 
+def test_get_module_str():
+    cm = "m1/m2/m3"
+    dm = "m1/m2/m"
+    assert get_module_str(cm, dm) == ".m"
+    cm = "m1/m2/m3/m4/m5"
+    dm = "x/y"
+    assert get_module_str(cm, dm) == ".....x.y"
+    cm = "m1/m2/m3/m4/m5/m6/m7/m8/m9/m10"
+    dm = "x"
+    with pytest.raises(RuntimeError) as e:
+        get_module_str(cm, dm)
+    cm = "m1/m2/m3/m4/m5/m6/m7/m8/m9/m10/m11/m12"
+    dm = "x"
+    with pytest.raises(RuntimeError) as e:
+        get_module_str(cm, dm)
+    assert "Can't parse more then 10 folder deep modules" in str(e)
+    cm = "x"
+    dm = "m1/m2/m3/m4/m5/m6/m7/m8/m9/m10/m11/m12"
+    with pytest.raises(RuntimeError) as e:
+        get_module_str(cm, dm)
+    assert "Can't parse more then 10 folder deep modules" in str(e)
+
+    
 
 def test_variable():
     v = SimpleVariable('test', 'type', 'value')

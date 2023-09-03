@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "warp_fastapi"
-version = "0.1.beta1"
+version = "0.1.beta2"
 description = "Create fastapi in a warp speed"
 authors = ["frenki123 <marko.frankola@gmail.com>"]
 license = "MIT"
@@ -76,6 +76,7 @@ skip-string-normalization = true
 
 [tool.mypy]
 strict = true
+enable_incomplete_feature='Unpack'
 
 [[tool.mypy.overrides]]
 module = "tests.*"

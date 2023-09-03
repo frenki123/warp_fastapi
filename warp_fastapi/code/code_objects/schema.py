@@ -58,11 +58,12 @@ class SchemaModuleCode(AbstractModuleCode):
         self.functions = []
         self.variables = []
         self.config = config
-        self.folder = config.schema_folder
-        self.filename = app_obj.name + config.schema_extension
+        self.folder = config.get_schema_folder(app_obj)
+        self.filename = config.get_schema_filename(app_obj)
+        common_schema_module = config.get_module_for_schema(app_obj, config.get_common_schema_path())
         self.imports = {
             '__future__': {'annotations'},
-            f'.{config.common_schema_filename}': {'Pagination'},
+            common_schema_module: {'Pagination'},
             'pydantic': {'BaseModel', 'ConfigDict'},
         }
         self.fill_imports(app_obj)
@@ -107,21 +108,21 @@ class SchemaModuleCode(AbstractModuleCode):
             edit_att.add(RelationshipCode(rel, app_obj, all_optional=True))
             # att_order.append(RelationshipCode(rel, app_obj,all_optional=True))
         base_att: OrderedSet[AbstractVariableCode] = find_base_att(read_att, create_att, edit_att)
-        base_class_name = f'{app_obj.class_name}{config.base_schema_ext}'
+        base_class_name = config.get_base_cls_schema(app_obj)
         self.classes.append(SimpleClassCode(base_class_name, 'BaseModel', list(base_att)))
         self.classes.append(
             SimpleClassCode(
-                config.pagination_schema(app_obj),
+                config.get_pagination_cls_schema(app_obj),
                 'Pagination',
-                [SimpleVariable('data', f'list[{app_obj.class_name}{config.read_schema_ext}]')],
+                [SimpleVariable('data', f'list[{config.get_read_cls_schema(app_obj)}]')],
             )
         )
         schemas: dict[str, OrderedSet[AbstractVariableCode]] = {
-            config.read_schema_ext: read_att,
-            config.create_schema_ext: create_att,
-            config.edit_schema_ext: edit_att,
+            config.get_read_cls_schema(app_obj): read_att,
+            config.get_create_cls_schema(app_obj): create_att,
+            config.get_edit_cls_schema(app_obj): edit_att,
         }
-        for ext, att_list in schemas.items():
+        for schema_cls_name, att_list in schemas.items():
             super_class = 'BaseModel'
             passed_att = att_list
             x1 = list(att_list - base_att) + list(base_att)
@@ -129,7 +130,7 @@ class SchemaModuleCode(AbstractModuleCode):
             if x1 == x2:
                 super_class = base_class_name
                 passed_att = OrderedSet(att_list - base_att)
-            self.classes.append(SimpleClassCode(f'{app_obj.class_name}{ext}', super_class, list(passed_att)))
+            self.classes.append(SimpleClassCode(schema_cls_name, super_class, list(passed_att)))
 
 
 def find_base_att(*sets: OrderedSet[AbstractVariableCode]) -> OrderedSet[AbstractVariableCode]:
@@ -156,8 +157,8 @@ def find_base_att(*sets: OrderedSet[AbstractVariableCode]) -> OrderedSet[Abstrac
 
 class CommonSchemaModule(SimpleModuleCode):
     def __init__(self, config: NameConfig):
-        self.filename = config.common_schema_filename
-        self.folder = config.schema_folder
+        self.filename = config.get_common_schema_filename()
+        self.folder = config.get_common_schema_folder()
 
     def __str__(self) -> str:
         return """

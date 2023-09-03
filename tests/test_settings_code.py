@@ -6,7 +6,7 @@ from .conftest import assert_code_lines
 
 def test_settings_module():
     config = NameConfig()
-    m = SettingsModuleCode(config)
+    m = SettingsModuleCode(config, 'NEW_PROJECT_NAME')
     r = """
 import secrets
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -17,7 +17,7 @@ class Settings(BaseSettings):
     SECRET_KEY:str = secrets.token_urlsafe(32)
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 8
     SQLALCHEMY_DATABASE_URL:str = "sqlite:///./database.db"
-    PROJECT_NAME:str = "Book REST API"
+    PROJECT_NAME:str = 'NEW_PROJECT_NAME'
     BACKEND_CORS_ORIGINS: list[AnyHttpUrl] = []
 settings = Settings()
 """

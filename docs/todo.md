@@ -2,7 +2,7 @@
 Future implementations:
 
 - Create Github CI/CD
-- Add mypy 
+- Add mypy - strict
 - Add automatic docker file creation
 - Automatically run project from docker
 - Add support for postgress, mysql with docker
@@ -19,4 +19,9 @@ Future implementations:
 - Add search with multiple parametars and operators
 - Automatic SDK creation
 - Add CLI support with Typer
+- Add SQLAlchemy Mixin classes
+- Use https://github.com/Kludex/fastapi-microservices/tree/main as example
+- Change Repo class according CRUDEBase from above exmple
+- Add support for more folder custumization
+- Add support for combining modules in one file (creating one module instead multiple ones)
 

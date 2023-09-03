@@ -4,13 +4,13 @@ from .base import SimpleModuleCode
 
 class DependanciesModuleCode(SimpleModuleCode):
     def __init__(self, config: NameConfig):
-        self.folder = ''
-        self.filename = config.dependency_file
-        self.db_file = config.database_file
+        self.folder = config.get_dependency_folder()
+        self.filename = config.get_dependency_filename()
+        self.db_module = config.get_module_for_dependency(config.get_database_path())
 
     def __str__(self) -> str:
         return f"""
-from .{self.db_file} import SessionLocal
+from {self.db_module} import SessionLocal
 
 def get_db():
     try:

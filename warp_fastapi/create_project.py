@@ -67,7 +67,7 @@ class ProjectCreator:
             MainModuleCode(self.project, self.config),
             DatabaseModuleCode(self.config),
             DependanciesModuleCode(self.config),
-            SettingsModuleCode(self.config),
+            SettingsModuleCode(self.config, self.project.name),
             CommonSchemaModule(self.config),
             BaseModuleCode(self.project.app_objects, self.config),
             RepoBaseModule(self.config),
@@ -92,7 +92,7 @@ class ProjectCreator:
     def _write_module(self, module: AbstractModuleCode, update: bool, main_dir: Path) -> None:
         dir = main_dir / module.folder
         if not dir.exists():
-            dir.mkdir(exist_ok=update)
+            dir.mkdir(parents=True, exist_ok=update)
             init_file = dir / '__init__.py'
             init_file.write_text('')
         module_file = dir / (module.filename + '.py')
@@ -108,14 +108,14 @@ class ProjectCreator:
         ]
 
     def _generate_alembic(self, update: bool) -> None:
-        alembic_dir = self.project_dir / 'alembic'
-        alembic_dir.mkdir(exist_ok=update)
+        alembic_dir = self.project_dir / self.config.alembic_folder
+        alembic_dir.mkdir(parents=True, exist_ok=update)
         alembic_ini = self.project_dir / 'alembic.ini'
-        alembic_ini.write_text(get_alembic_ini_code())
+        alembic_ini.write_text(get_alembic_ini_code(self.config))
         versions_dir = alembic_dir / 'versions'
-        versions_dir.mkdir(exist_ok=update)
+        versions_dir.mkdir(parents=True, exist_ok=update)
         env_file = alembic_dir / 'env.py'
-        env_file.write_text(get_alembic_env_code())
+        env_file.write_text(get_alembic_env_code(self.config))
         readme_file = alembic_dir / 'README'
         readme_file.write_text(get_alembic_readme())
         mako_file = alembic_dir / 'script.py.mako'
