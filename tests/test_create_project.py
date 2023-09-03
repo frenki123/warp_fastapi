@@ -2,6 +2,7 @@ from pathlib import Path
 
 from warp_fastapi import AppProject
 from warp_fastapi.create_project import ProjectCreator
+from warp_fastapi.code.config import NameConfig
 
 
 def file_contains(filepath: Path, text: str):
@@ -41,3 +42,20 @@ def test_poject_creator_init(app_proj: AppProject, tmp_path: Path):
     assert not file_contains(service_f, 'SOME TEST FOR TESTING')
     assert not file_contains(req_file, 'fastapi[all]')
     assert file_contains(req_file, 'req1')
+
+def test_project_creation_wird_config(app_proj: AppProject, tmp_path: Path):
+    config = NameConfig(
+        model_file="{name}/{name}_model",
+        database_file="database/database",
+        route_file="api/v1/route_{name}",
+    )
+    creator = ProjectCreator(app_proj, str(tmp_path), config)
+    creator.create_project()
+    proj_dir = tmp_path / creator.project.name
+    assert proj_dir.is_dir()
+    app_dir = proj_dir / 'app'
+    assert app_dir.is_dir()
+    model_dir = app_dir / "obj1"
+    model_file = model_dir / "obj1_model.py"
+    assert model_dir.is_dir()
+    assert file_contains(model_file, 'sqlalchemy')

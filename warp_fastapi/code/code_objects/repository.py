@@ -16,14 +16,16 @@ class RepoModuleCode(AbstractModuleCode):
         self.functions = []
         self.variables = []
         self.config = config
-        self.folder = config.repository_folder
-        self.filename = app_obj.name + config.repository_extension
+        self.folder = config.get_repository_folder(app_obj)
+        self.filename = config.get_repository_filename(app_obj)
+        main_repo_module = config.get_module_for_repository(app_obj, config.get_repository_main_path())
+        model_module = config.get_module_for_repository(app_obj, config.get_model_path(app_obj))
         self.imports = {
             'sqlalchemy.orm': {'Session'},
-            f'.{config.repository_main_class_filename}': {f'{config.repository_main_class_name}'},
-            f'..{config.model_folder}.{app_obj.name}{config.model_extension}': {f'{app_obj.class_name}'},
+            main_repo_module: {config.repository_main_class_name},
+            model_module: {app_obj.class_name},
         }
-        class_name = f'{app_obj.class_name}{config.repository_class_ext}'
+        class_name = config.get_repo_classname(app_obj)
         init_function = SimpleFunctionCode(
             '__init__',
             f'super().__init__(db, {app_obj.class_name})',
@@ -42,15 +44,15 @@ class RepoModuleCode(AbstractModuleCode):
 
 class RepoBaseModule(SimpleModuleCode):
     def __init__(self, config: NameConfig):
-        self.folder = config.repository_folder
-        self.filename = config.repository_main_class_filename
-        self.database_file = config.database_file
+        self.folder = config.get_repository_main_folder()
+        self.filename = config.get_repository_main_filename()
+        self.database_module = config.get_module_for_repository_main(config.get_database_path())
 
     def __str__(self) -> str:
         return f"""
 from sqlalchemy.orm import Session
 from sqlalchemy import select
-from ..{self.database_file} import Base
+from {self.database_module} import Base
 from typing import Type, Dict, Any, Optional, TypeVar
 from fastapi import HTTPException
 

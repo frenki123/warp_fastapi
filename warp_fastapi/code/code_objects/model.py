@@ -122,12 +122,13 @@ class ModelClassCode(AbstractClassCode):
 class ModelModuleCode(AbstractModuleCode):
     def __init__(self, app_obj: AppObject, config: NameConfig = NameConfig()):
         self.config = config
-        self.folder = config.model_folder
-        self.filename = app_obj.name + config.model_extension
+        self.folder = config.get_model_folder(app_obj)
+        self.filename = config.get_model_filename(app_obj)
         self.imports = {
             '__future__': {'annotations'},
             'typing': {'TYPE_CHECKING'},
-            f'..{config.database_file}': {'Base'},
+            config.get_module_for_model(app_obj,
+                config.get_database_path()): {'Base'},
             'sqlalchemy.orm': {'mapped_column', 'relationship', 'Session', 'Mapped'},
             'sqlalchemy': {'ForeignKey', 'Table', 'Column', 'Integer'},
             'sqlalchemy.ext.hybrid': {'hybrid_property'},
@@ -150,7 +151,7 @@ class ModelModuleCode(AbstractModuleCode):
                     self.imports[att.type.python_module] = {att.type.python_type}
         for rel in app_obj.all_relationships:
             obj = app_obj.get_rel_obj(rel)
-            module = f'.{self.config.model_name(obj)}'
+            module = self.config.get_module_for_model(app_obj, self.config.get_model_path(obj))
             class_name = obj.class_name
             if self.type_checking_imports.get(module):
                 self.type_checking_imports[module].add(class_name)  # pragma: no cover -> probably will never happen

@@ -30,8 +30,8 @@ class ConfTestModuleCode(AbstractModuleCode):
             'sqlalchemy.orm': {'sessionmaker'},
             'sqlalchemy.pool': {'StaticPool'},
             'fastapi.testclient': {'TestClient'},
-            f'{config.app_foldername}.{config.base_file}': {'Base'},
-            f'{config.app_foldername}.{config.dependency_file}': {'get_db'},
+            config.get_module_for_tests(config.get_base_path()): {'Base'},
+            config.get_module_for_tests(config.get_dependency_path()): {'get_db'},
             f'{config.app_foldername}.main': {'app'},
         }
         self.create_fixtures(app_objs)

@@ -81,7 +81,7 @@ def code_to_list(s: str | AbstractModuleCode | AbstractClassCode):
     return list(filter(lambda line: line != '', str(s).split('\n')))
 
 
-def assert_code_lines(m: AbstractModuleCode | AbstractClassCode, r: str):
+def assert_code_lines(m: AbstractModuleCode | AbstractClassCode | str, r: str):
     l1 = code_to_list(m)
     l2 = code_to_list(r)
     assert len(l1) == len(l2), f'Not same line numbers: {len(l1)} == {len(l2)}'

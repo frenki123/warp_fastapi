@@ -17,7 +17,7 @@ class ServiceInitFunction(AbstractFunctionCode):
         self.name = '__init__'
         self.parametars = [
             SimpleVariable('self'),
-            SimpleVariable('repository', config.repo_class(app_obj)),
+            SimpleVariable('repository', config.get_repo_classname(app_obj)),
         ]
         self.content = ''
         self.get_data(app_obj, config)
@@ -26,8 +26,14 @@ class ServiceInitFunction(AbstractFunctionCode):
         content: list[AbstractVariableCode] = [SimpleVariable('self.repository', value='repository')]
         for rel in app_obj.all_relationships:
             obj = app_obj.get_rel_obj(rel)
-            self.parametars.append(SimpleVariable(f'{config.repo_name(obj)}', f'{config.repo_class(obj)}'))
-            content.append(SimpleVariable(f'self.{config.repo_name(obj)}', value=f'{config.repo_name(obj)}'))
+            self.parametars.append(
+                SimpleVariable(f'{config.get_repository_filename(obj)}', f'{config.get_repo_classname(obj)}')
+            )
+            content.append(
+                SimpleVariable(
+                    f'self.{config.get_repository_filename(obj)}', value=f'{config.get_repository_filename(obj)}'
+                )
+            )
         self.content = '\n'.join([str(c) for c in content])
 
 
@@ -36,7 +42,9 @@ class ServiceIdSearchFunc(AbstractFunctionCode):
         self.name = '_get_id_data'
         self.parametars = [
             SimpleVariable('self'),
-            SimpleVariable(app_obj.name, f'{config.create_schema(app_obj)}|{config.edit_schema(app_obj)}'),
+            SimpleVariable(
+                app_obj.name, f'{config.get_create_cls_schema(app_obj)}|{config.get_edit_cls_schema(app_obj)}'
+            ),
         ]
         self.content = self.get_content(app_obj, config)
 
@@ -47,15 +55,15 @@ class ServiceIdSearchFunc(AbstractFunctionCode):
         for rel in app_obj.all_relationships:
             name = app_obj.get_rel_name(rel)
             obj = app_obj.get_rel_obj(rel)
-            v1 = str(SimpleVariable(name, f'{config.read_schema(obj)}|None', 'None'))
+            v1 = str(SimpleVariable(name, f'{config.get_read_cls_schema(obj)}|None', 'None'))
             search_fun = 'get_by_id'
             return_vars.append(name)
             if app_obj.is_relationship_many(rel):
-                v1 = str(SimpleVariable(name, f'list[{config.read_schema(obj)}]', '[]'))
+                v1 = str(SimpleVariable(name, f'list[{config.get_read_cls_schema(obj)}]', '[]'))
                 search_fun = 'get_by_ids'
             search_vars.append(
                 f'if {app_obj.name}.{name}_id:\n'
-                f'    {name} = self.{config.repo_name(obj)}.{search_fun}({app_obj.name}.{name}_id)'
+                f'    {name} = self.{config.get_repository_filename(obj)}.{search_fun}({app_obj.name}.{name}_id)'
             )
             init_vars.append(v1)
         r1 = '\n'.join(init_vars)
@@ -72,7 +80,9 @@ class ServicePrapareDBFucn(AbstractFunctionCode):
         self.name = '_prepare_db_data'
         self.parametars = [
             SimpleVariable('self'),
-            SimpleVariable(app_obj.name, f'{config.create_schema(app_obj)}|{config.edit_schema(app_obj)}'),
+            SimpleVariable(
+                app_obj.name, f'{config.get_create_cls_schema(app_obj)}|{config.get_edit_cls_schema(app_obj)}'
+            ),
         ]
         self.content = self.get_content(app_obj, config)
 
@@ -104,9 +114,9 @@ class ServiceGetCode(AbstractFunctionCode):
 class ServiceActionCode(AbstractFunctionCode):
     def __init__(self, app_obj: AppObject, action: Literal['create', 'edit', 'update'], config: NameConfig):
         self.name = f'{action}_{app_obj.name}'
-        obj_type = config.edit_schema(app_obj)
+        obj_type = config.get_edit_cls_schema(app_obj)
         if action != 'edit':
-            obj_type = config.create_schema(app_obj)
+            obj_type = config.get_create_cls_schema(app_obj)
         self.parametars = [
             SimpleVariable('self'),
         ]
@@ -151,7 +161,7 @@ return db_results
 
 class ServiceClassCode(AbstractClassCode):
     def __init__(self, app_obj: AppObject, config: NameConfig):
-        self.class_name = app_obj.class_name + config.service_class_ext
+        self.class_name = config.get_service_classname(app_obj)
         self.attributes = []
         self.methods = [ServiceInitFunction(app_obj, config)]
         if app_obj.all_relationships:
@@ -173,11 +183,11 @@ class GetServiceFunc(SimpleFunctionCode):
     def __init__(self, app_obj: AppObject, config: NameConfig):
         self.name = f'get_{app_obj.name}_service'
         self.parametars = [SimpleVariable('db', 'Session')]
-        return_params = [f'{config.repo_class(app_obj)}(db)']
+        return_params = [f'{config.get_repo_classname(app_obj)}(db)']
         for rel in app_obj.all_relationships:
             obj = app_obj.get_rel_obj(rel)
-            return_params.append(f'{config.repo_name(obj)}={config.repo_class(obj)}(db)')
-        self.content = f"return {config.service_class(app_obj)}({', '.join(return_params)})"
+            return_params.append(f'{config.get_repository_filename(obj)}={config.get_repo_classname(obj)}(db)')
+        self.content = f"return {config.get_service_classname(app_obj)}({', '.join(return_params)})"
 
 
 class ServiceModuleCode(AbstractModuleCode):
@@ -187,18 +197,18 @@ class ServiceModuleCode(AbstractModuleCode):
         self.functions = [GetServiceFunc(app_obj, config)]
         self.variables = []
         self.config = config
-        self.folder = config.service_folder
-        self.filename = app_obj.name + config.service_extension
-        schema_module = f'{config.schema_folder}.{app_obj.name}{config.schema_extension}'
-        create_schema = f'{app_obj.class_name}{config.create_schema_ext}'
-        edit_schema = f'{app_obj.class_name}{config.edit_schema_ext}'
-        response_schema = f'{app_obj.class_name}{config.read_schema_ext}'
-        db_schema = f'{app_obj.class_name}{config.db_schema_ext}'
-        repo_modul = f'{config.repository_folder}.{app_obj.name}{config.repository_extension}'
-        repo_name = f'{app_obj.class_name}{config.repository_class_ext}'
+        self.folder = config.get_service_folder(app_obj)
+        self.filename = config.get_service_filename(app_obj)
+        schema_module = config.get_module_for_service(app_obj, config.get_schema_path(app_obj))
+        create_schema = config.get_create_cls_schema(app_obj)
+        edit_schema = config.get_edit_cls_schema(app_obj)
+        response_schema = config.get_read_cls_schema(app_obj)
+        db_schema = config.get_db_cls_schema(app_obj)
+        repo_modul = config.get_module_for_service(app_obj, config.get_repository_path(app_obj))
+        repo_name = config.get_repo_classname(app_obj)
         self.imports = {
-            f'..{schema_module}': {create_schema, edit_schema, response_schema, db_schema},
-            f'..{repo_modul}': {repo_name},
+            f'{schema_module}': {create_schema, edit_schema, response_schema, db_schema},
+            f'{repo_modul}': {repo_name},
             'sqlalchemy.orm': {'Session'},
         }
         self.fill_imports(app_obj, config)
@@ -214,10 +224,10 @@ class ServiceModuleCode(AbstractModuleCode):
     def fill_imports(self, app_obj: AppObject, config: NameConfig) -> None:
         for rel in app_obj.all_relationships:
             obj = app_obj.get_rel_obj(rel)
-            class_name = config.repo_class(obj)
-            module_name = '..' + config.repo_module(obj)
-            schema_module = '..' + config.schema_module(obj)
-            response_class = config.read_schema(obj)
+            class_name = config.get_repo_classname(obj)
+            module_name = config.get_module_for_service(app_obj, config.get_repository_path(obj))
+            schema_module = config.get_module_for_service(app_obj, config.get_schema_path(obj))
+            response_class = config.get_read_cls_schema(obj)
             if self.imports.get(module_name):
                 self.imports[module_name].add(
                     class_name

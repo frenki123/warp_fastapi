@@ -1,9 +1,11 @@
-def get_alembic_ini_code() -> str:
-    return """# A generic, single database configuration.
+from ..config import NameConfig
+
+def get_alembic_ini_code(config:NameConfig) -> str:
+    return f"""# A generic, single database configuration.
 
 [alembic]
 # path to migration scripts
-script_location = alembic
+script_location = {config.alembic_folder}
 
 # template used to generate migration file names; The default value is %%(rev)s_%%(slug)s
 # Uncomment the line below if you want the files to be prepended with date and time
@@ -147,8 +149,9 @@ def get_alembic_readme() -> str:
     return 'Generic single-database configuration.'
 
 
-def get_alembic_env_code() -> str:
-    return """import os
+def get_alembic_env_code(config:NameConfig) -> str:
+    base_module = config.get_module_for_alembic(config.get_base_path())
+    return f"""import os
 from logging.config import fileConfig
 from dotenv import load_dotenv
 
@@ -176,7 +179,7 @@ if config.config_file_name is not None:
 
 # add your model's MetaData object here
 # for 'autogenerate' support
-from app.base import Base
+from {base_module} import Base
 target_metadata = Base.metadata
 #target_metadata = None
 
@@ -203,7 +206,7 @@ def run_migrations_offline() -> None:
         url=url,
         target_metadata=target_metadata,
         literal_binds=True,
-        dialect_opts={'paramstyle': 'named'},
+        dialect_opts={{'paramstyle': 'named'}},
     )
 
     with context.begin_transaction():
@@ -218,7 +221,7 @@ def run_migrations_online() -> None:
 
     '''
     connectable = engine_from_config(
-        config.get_section(config.config_ini_section, {}),
+        config.get_section(config.config_ini_section, {{}}),
         prefix='sqlalchemy.',
         poolclass=pool.NullPool,
     )

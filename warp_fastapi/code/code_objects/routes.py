@@ -7,32 +7,32 @@ from .base import (
 
 class RoutesModuleCode(SimpleModuleCode):
     def __init__(self, app_obj: AppObject, config: NameConfig = NameConfig()):
-        self.folder = config.route_folder
-        self.filename = app_obj.name + config.route_extension
+        self.folder = config.get_route_folder(app_obj)
+        self.filename = config.get_route_filename(app_obj)
         self.name = app_obj.name
         self.class_name = app_obj.class_name
-        self.response_schema = config.read_schema(app_obj)
-        self.create_schema = config.create_schema(app_obj)
-        self.edit_schema = config.edit_schema(app_obj)
-        self.service = config.service_class(app_obj)
+        self.response_schema = config.get_read_cls_schema(app_obj)
+        self.create_schema = config.get_create_cls_schema(app_obj)
+        self.edit_schema = config.get_edit_cls_schema(app_obj)
+        self.service = config.get_service_classname(app_obj)
         self.route_name = app_obj.route_name
-        self.dependency_file = config.dependency_file
-        self.schema_modul = config.schema_module(app_obj)
-        self.repo_modul = config.repo_module(app_obj)
-        self.repo_class = config.repo_class(app_obj)
-        self.service_modul = config.service_module(app_obj)
-        self.common_schema = config.common_schema_module()
+        self.dependency_module = config.get_module_for_route(app_obj, config.get_dependency_path())
+        self.schema_modul = config.get_module_for_route(app_obj, config.get_schema_path(app_obj))
+        self.repo_modul = config.get_module_for_route(app_obj, config.get_repository_path(app_obj))
+        self.repo_class = config.get_repo_classname(app_obj)
+        self.service_modul = config.get_module_for_route(app_obj, config.get_service_path(app_obj))
+        self.common_schema_module = config.get_module_for_route(app_obj, config.get_common_schema_path())
 
     def __str__(self) -> str:
         return f"""from fastapi import APIRouter, HTTPException, Depends, Query
 from fastapi.responses import JSONResponse
 from typing import Annotated
 from sqlalchemy.orm import Session
-from ..{self.dependency_file} import authorize, get_db
-from ..{self.schema_modul} import {self.response_schema}, {self.create_schema}, {self.edit_schema}
-from ..{self.repo_modul} import {self.repo_class}
-from ..{self.service_modul} import {self.service}, get_{self.name}_service
-from ..{self.common_schema} import QuerySchema
+from {self.dependency_module} import authorize, get_db
+from {self.schema_modul} import {self.response_schema}, {self.create_schema}, {self.edit_schema}
+from {self.repo_modul} import {self.repo_class}
+from {self.service_modul} import {self.service}, get_{self.name}_service
+from {self.common_schema_module} import QuerySchema
 
 router = APIRouter(prefix="/{self.route_name}", tags=['{self.name}'])
 
@@ -88,14 +88,14 @@ def delete_{self.name}(
 
 class MainRouterCode(SimpleModuleCode):
     def __init__(self, app_objects: list[AppObject], config: NameConfig = NameConfig()):
-        self.folder = config.route_folder
-        self.filename = config.main_route_filename
+        self.folder = config.get_main_route_folder()
+        self.filename = config.get_main_route_filename()
         self.routes: list[str] = []
         self.fill_routes(app_objects, config)
 
     def fill_routes(self, app_objects: list[AppObject], config: NameConfig) -> None:
         for obj in app_objects:
-            self.routes.append(f'{obj.name}{config.route_extension}')
+            self.routes.append(config.get_route_filename(obj))
 
     @property
     def all_routes_code(self) -> str:
