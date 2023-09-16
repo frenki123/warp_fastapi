@@ -1,8 +1,9 @@
 from pathlib import Path
+from typing import NotRequired, TypedDict, Unpack
 
 from ..main import AppObject
 from .utils import get_module_str
-from typing import TypedDict, NotRequired, Unpack
+
 
 class TypedNameConfig(TypedDict):
     database_file: NotRequired[str]
@@ -30,6 +31,7 @@ class TypedNameConfig(TypedDict):
     alembic_folder: NotRequired[str]
     app_foldername: NotRequired[str]
 
+
 class NameConfig:
     database_file: str = 'database'
     base_file: str = 'base'
@@ -53,7 +55,7 @@ class NameConfig:
     repository_class_tmpl: str = '{class_name}Repository'
     service_file: str = 'services/{name}_service'
     service_class_tmpl: str = '{class_name}Service'
-    alembic_folder:str = "alembic"
+    alembic_folder: str = 'alembic'
     app_foldername: str = 'app'
 
     def __init__(self, **kwargs: Unpack[TypedNameConfig]) -> None:
@@ -104,7 +106,7 @@ class NameConfig:
 
     def get_module_for_dependency(self, other_path: str | Path) -> str:
         return get_module_str(self.dependency_file, str(other_path))
-    
+
     def get_settings_filename(self) -> str:
         return Path(self.settings_file).name
 
@@ -242,11 +244,11 @@ class NameConfig:
 
     def get_module_for_main(self, other_path: str | Path) -> str:
         return get_module_str('.', str(other_path))
-    
-    def get_module_for_tests(self, other_path:str | Path) -> str:
+
+    def get_module_for_tests(self, other_path: str | Path) -> str:
         return self.app_foldername + get_module_str('.', str(other_path))
-    
-    def get_module_for_alembic(self, other_path:str | Path) -> str:
+
+    def get_module_for_alembic(self, other_path: str | Path) -> str:
         return self.app_foldername + get_module_str('.', str(other_path))
 
     @staticmethod
@@ -263,18 +265,19 @@ class NameConfig:
         path = Path(self._format(string_path, app_obj))
         return path
 
+
 config_kludex = NameConfig(
-    database_file="core/database",
-    base_file="models/base",
-    dependency_file="api/deps",
-    settings_file="core/config",
-    model_file="models/{name}_model",
-    route_file="api/v1/{name}_route",
-    main_route_file="api/v1/routes",
-    schema_file="schemas/{name}_schema",
-    common_schema_file="schemas/common",    
-    repository_file="repo/{name}_repo",
-    repository_main_file="repo/base_repo",
+    database_file='core/database',
+    base_file='models/base',
+    dependency_file='api/deps',
+    settings_file='core/config',
+    model_file='models/{name}_model',
+    route_file='api/v1/{name}_route',
+    main_route_file='api/v1/routes',
+    schema_file='schemas/{name}_schema',
+    common_schema_file='schemas/common',
+    repository_file='repo/{name}_repo',
+    repository_main_file='repo/base_repo',
     service_file='services/{name}_service',
-    alembic_folder='app/database/migrations'
+    alembic_folder='app/database/migrations',
 )

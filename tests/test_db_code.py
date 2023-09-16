@@ -14,11 +14,8 @@ from sqlalchemy.orm import sessionmaker, DeclarativeBase, mapped_column, Mapped
 from .test_settings import settings
 
 SQLALCHEMY_DATABASE_URL = settings.SQLALCHEMY_DATABASE_URL
-# SQLALCHEMY_DATABASE_URL = "postgresql://user:password@postgresserver/db"
 
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
-)
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 class Base(DeclarativeBase):

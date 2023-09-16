@@ -15,11 +15,8 @@ from sqlalchemy.orm import sessionmaker, DeclarativeBase, mapped_column, Mapped
 from {self.settings_module} import settings
 
 SQLALCHEMY_DATABASE_URL = settings.SQLALCHEMY_DATABASE_URL
-# SQLALCHEMY_DATABASE_URL = "postgresql://user:password@postgresserver/db"
 
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={{"check_same_thread": False}}
-)
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 class Base(DeclarativeBase):
@@ -34,9 +31,7 @@ class BaseModuleCode(SimpleModuleCode):
         self.database_module = config.get_module_for_base(config.get_database_path())
         code_lines: list[str] = []
         for obj in objects:
-            code_line = (
-                f'from {config.get_module_for_base(config.get_model_path(obj))} import {obj.class_name} # noqa'
-            )
+            code_line = f'from {config.get_module_for_base(config.get_model_path(obj))} import {obj.class_name} # noqa'
             code_lines.append(code_line)
         self.models_code = '\n'.join(code_lines)
 

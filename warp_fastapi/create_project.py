@@ -1,4 +1,6 @@
+import subprocess
 from pathlib import Path
+from typing import Literal
 
 from .code.alembic.alembic import (
     get_alembic_env_code,
@@ -18,28 +20,28 @@ from .code.code_objects.service import ServiceModuleCode
 from .code.code_objects.settings import SettingsModuleCode
 from .code.code_objects.tests import ConfTestModuleCode, TestModuleCode
 from .code.config import NameConfig
+from .code.devops import docker, dotenv, git, local
 from .main import AppObject, AppProject
 
 
-# TODO:create app in temp dir first, run black and ruff then copy to main folder
 class ProjectCreator:
     def __init__(
         self,
         project: AppProject,
         project_dir: str = '.',
         config: NameConfig = NameConfig(),
-        env_file: str = '.env',
         requirements: list[str] = [],
+        deployment: Literal['Docker', 'local'] = 'local',
     ):
         self.project = project
         self.config = config
+        self.deployment = deployment
         self.project_dir = Path(project_dir, project.name)
         self.app_dir = self.project_dir / config.app_foldername
         self.test_dir = self.project_dir / 'tests'
         self.requirements = ['fastapi[all]', 'sqlalchemy', 'alembic', 'black', 'ruff', 'pytest', 'pytest-cov', 'mypy']
         if requirements:
             self.requirements = requirements  # pragma: no cover
-        self.env_file = env_file
 
     def create_project(self) -> None:
         self._generate(False)
@@ -59,8 +61,14 @@ class ProjectCreator:
         self._generate_const_file(update)
         self._generate_alembic(update)
         self._copy_env_file()
+        if self.deployment == 'Docker':
+            self.requirements.append('psycopg2')
         self._generate_requirements_txt()
+        self._generate_git_files()
         self._generate_startup_script()
+        if self.deployment == 'Docker':
+            self._generate_docker_files()
+        self._reformat_code()
 
     def _generate_const_file(self, update: bool) -> None:
         const_modules: list[AbstractModuleCode] = [
@@ -122,14 +130,11 @@ class ProjectCreator:
         mako_file.write_text(get_script_py_mako())
 
     def _copy_env_file(self) -> None:
+        env_template = ''
+        env_template = dotenv.get_postgress_env()
+        if self.deployment == 'local':
+            env_template = dotenv.get_sqlite_env()
         dest = self.project_dir / '.env'
-        src = Path(self.env_file)
-        if src.is_file():
-            dest.write_text(src.read_text())
-            return None
-        env_template = """
-SQLALCHEMY_DATABASE_URL = "sqlite:///./database.db"
-"""
         dest.write_text(env_template)
 
     def _generate_requirements_txt(self) -> None:
@@ -139,24 +144,22 @@ SQLALCHEMY_DATABASE_URL = "sqlite:///./database.db"
 
     def _generate_startup_script(self) -> None:
         script_file = self.project_dir / 'startup.sh'
-        script = """#!/bin/bash
-echo "Creating virtual enviroment .venv"
-python -m venv .venv
-source ./.venv/Scripts/activate
-echo "Instaling requirements"
-pip install -r requirements.txt
-echo "Lint and formating check"
-black app
-ruff app --fix
-black app
-echo "Database initial migration"
-alembic revision -m "Tables creation" --autogenerate
-alembic upgrade head
-echo "mypy check"
-mypy .
-echo "tests"
-pytest --cov
-echo "starting app"
-uvicorn app.main:app --reload"""
-
+        script = local.get_startup_script()
         script_file.write_text(script)
+
+    def _generate_docker_files(self) -> None:
+        docker_file = self.project_dir / 'dockerfile'
+        compose_file = self.project_dir / 'compose.yml'
+        dockerignroe_file = self.project_dir / '.dockerignore'
+        docker_file.write_text(docker.get_dockerfile(self.config))
+        compose_file.write_text(docker.get_compose_file())
+        dockerignroe_file.write_text(docker.get_dockerignore())
+
+    def _generate_git_files(self) -> None:
+        gitignore_file = self.project_dir / '.gitignore'
+        gitignore_file.write_text(git.get_gitignore())
+
+    def _reformat_code(self) -> None:
+        full_path = self.project_dir.resolve()
+        subprocess.run(['ruff', full_path, '--fix', '-s', '-n'])
+        subprocess.run(['black', full_path, '-q'])
