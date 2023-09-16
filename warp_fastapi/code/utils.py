@@ -34,7 +34,7 @@ def get_module_str(current_module: str, dependency: str) -> str:
         if dep_path.is_relative_to(current_parent):
             break
         dots_num += 1
-        current_parent = current_parent.parent    
+        current_parent = current_parent.parent
     if i >= 9:
         raise RuntimeError("Can't parse more then 10 folder deep modules")
 

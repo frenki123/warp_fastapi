@@ -127,8 +127,7 @@ class ModelModuleCode(AbstractModuleCode):
         self.imports = {
             '__future__': {'annotations'},
             'typing': {'TYPE_CHECKING'},
-            config.get_module_for_model(app_obj,
-                config.get_database_path()): {'Base'},
+            config.get_module_for_model(app_obj, config.get_database_path()): {'Base'},
             'sqlalchemy.orm': {'mapped_column', 'relationship', 'Session', 'Mapped'},
             'sqlalchemy': {'ForeignKey', 'Table', 'Column', 'Integer'},
             'sqlalchemy.ext.hybrid': {'hybrid_property'},

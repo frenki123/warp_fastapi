@@ -3,6 +3,7 @@ from warp_fastapi.code.config import NameConfig, config_kludex
 
 from .conftest import assert_code_lines
 
+
 def test_alembic_code():
     config = NameConfig()
     m1 = get_alembic_env_code(config)

@@ -20,7 +20,7 @@ class Settings(BaseSettings):
     API_V1_STRING:str = "/api/v1"
     SECRET_KEY:str = secrets.token_urlsafe(32)
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 8
-    SQLALCHEMY_DATABASE_URL:str = "sqlite:///./database.db"
+    SQLALCHEMY_DATABASE_URL:str = ""
     PROJECT_NAME:str = '{self.project_name}'
     BACKEND_CORS_ORIGINS: list[AnyHttpUrl] = []
 
