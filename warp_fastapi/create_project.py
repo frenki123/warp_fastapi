@@ -1,3 +1,4 @@
+import subprocess
 from pathlib import Path
 from typing import Literal
 
@@ -21,7 +22,7 @@ from .code.code_objects.tests import ConfTestModuleCode, TestModuleCode
 from .code.config import NameConfig
 from .code.devops import docker, dotenv, git, local
 from .main import AppObject, AppProject
-import subprocess
+
 
 class ProjectCreator:
     def __init__(
@@ -160,5 +161,5 @@ class ProjectCreator:
 
     def _reformat_code(self) -> None:
         full_path = self.project_dir.resolve()
-        subprocess.run(["ruff", full_path, "--fix", "-s", "-n"])
-        subprocess.run(["black", full_path, "-q"])
+        subprocess.run(['ruff', full_path, '--fix', '-s', '-n'])
+        subprocess.run(['black', full_path, '-q'])

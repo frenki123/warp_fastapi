@@ -2,7 +2,7 @@ from ..config import NameConfig
 
 
 def get_dockerfile(config: NameConfig) -> str:
-    return f"""FROM python:3
+    return """FROM python:3
 
 WORKDIR /app
 RUN mkdir app
@@ -17,6 +17,7 @@ COPY ./app ./app
 
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80", "--reload"]
 """
+
 
 def get_compose_file() -> str:
     return """version: '3.1'
