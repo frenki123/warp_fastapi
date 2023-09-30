@@ -10,6 +10,7 @@ from warp_fastapi.main import (
     AppObject,
     AppProject,
     Attribute,
+    AuthObject,
     BackpopulatesRelationship,
     TemplateModel,
     create_relationship,
@@ -132,3 +133,10 @@ def test_project_creation(app_objs: list[AppObject]):
     project = AppProject('my_project', *app_objs)
     assert project.name == 'my_project'
     assert project.app_objects == app_objs
+
+
+def test_secure_project(app_objs: list[AppObject], auth_obj: AuthObject):
+    project = AppProject('my_project', *app_objs, auth_object=auth_obj)
+    assert project.name == 'my_project'
+    assert project.app_objects == app_objs + [auth_obj]
+    assert project.auth_object.name == 'auth_obj'  # type: ignore [union-attr]

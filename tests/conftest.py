@@ -7,7 +7,7 @@ from warp_fastapi.code.code_objects.base import (
     SimpleFunctionCode,
     SimpleVariable,
 )
-from warp_fastapi.main import AppObject, AppProject, Attribute, Relationship
+from warp_fastapi.main import AppObject, AppProject, Attribute, AuthObject, Relationship
 from warp_fastapi.relationships import many_to_many, many_to_one, one_to_many
 from warp_fastapi.sqlalch_types import date_only_type, int_type, string_type, time_type
 
@@ -30,6 +30,11 @@ def complex_att():
 @pytest.fixture
 def app_obj(atts: list[Attribute]):
     return AppObject('app', *atts)
+
+
+@pytest.fixture
+def auth_obj(atts: list[Attribute]):
+    return AuthObject('auth_obj', *atts)
 
 
 @pytest.fixture

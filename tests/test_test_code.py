@@ -12,12 +12,13 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
+from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from app.base import Base
-from app.dependancies import get_db
+from app.dependancies import get_current_user, get_db
 from app.main import app
 @pytest.fixture
-def client():
+def base_client():
     TEST_DB = "sqlite://"
     engine = create_engine(
         TEST_DB,
@@ -33,7 +34,10 @@ def client():
         finally:
             db.close()
     app.dependency_overrides[get_db] = override_get_db
-    with TestClient(app) as c:
+    return app
+@pytest.fixture
+def client(base_client: FastAPI):
+    with TestClient(base_client) as c:
         yield c
 @pytest.fixture
 def get_object1() -> dict[str,str|int]:
@@ -54,6 +58,7 @@ def test_tmodule_code(app_objs_with_rel: tuple[AppObject, AppObject], complex_in
         """
 import pytest
 from fastapi.testclient import TestClient
+from app.security import is_valid_password
 def test_object1(client: TestClient, get_object1: dict[str,str|int], """
         """get_object3: dict[str,str|int], get_object4: dict[str,str|int]):
     client.post('/api/v1/object3s',json=get_object3)

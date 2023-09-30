@@ -10,5 +10,5 @@ POSTGRES_PASSWORD=safepassword
 POSTGRES_DB=database
 PGADMIN_MAIL=admin@email.com
 PGADMIN_PW=adminpassword
-SQLALCHEMY_DATABASE_URL = "sqlite:///./database.db?check_same_thread=true"
+SQLALCHEMY_DATABASE_URL = "sqlite:///./database.db?check_same_thread=false"
 """

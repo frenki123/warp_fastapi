@@ -8,6 +8,7 @@ def test_dep_module():
     config = NameConfig()
     m = DependanciesModuleCode(config)
     r = """
+from typing import Any
 from .database import SessionLocal
 def get_db():
     try:
