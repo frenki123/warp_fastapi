@@ -9,10 +9,12 @@ class TypedNameConfig(TypedDict):
     database_file: NotRequired[str]
     base_file: NotRequired[str]
     dependency_file: NotRequired[str]
+    security_file: NotRequired[str]
     settings_file: NotRequired[str]
     model_file: NotRequired[str]
     route_file: NotRequired[str]
     main_route_file: NotRequired[str]
+    login_route_file: NotRequired[str]
     schema_file: NotRequired[str]
     base_schema_tmpl: NotRequired[str]
     create_schema_tmpl: NotRequired[str]
@@ -36,10 +38,12 @@ class NameConfig:
     database_file: str = 'database'
     base_file: str = 'base'
     dependency_file: str = 'dependancies'
+    security_file: str = 'security'
     settings_file: str = 'settings'
     model_file: str = 'models/{name}_model'
     route_file: str = 'routes/{name}_route'
     main_route_file: str = 'routes/main_routes'
+    login_route_file: str = 'routes/login'
     schema_file: str = 'schemas/{name}_schema'
     base_schema_tmpl: str = '{class_name}Base'
     create_schema_tmpl: str = '{class_name}Create'
@@ -107,6 +111,18 @@ class NameConfig:
     def get_module_for_dependency(self, other_path: str | Path) -> str:
         return get_module_str(self.dependency_file, str(other_path))
 
+    def get_security_filename(self) -> str:
+        return Path(self.security_file).name
+
+    def get_security_folder(self) -> str:
+        return str(Path(self.security_file).parent)
+
+    def get_security_path(self) -> str:
+        return str(Path(self.security_file))
+
+    def get_module_for_security(self, other_path: str | Path) -> str:
+        return get_module_str(self.security_file, str(other_path))
+
     def get_settings_filename(self) -> str:
         return Path(self.settings_file).name
 
@@ -154,6 +170,18 @@ class NameConfig:
 
     def get_module_for_main_route(self, other_path: str | Path) -> str:
         return get_module_str(self.main_route_file, str(other_path))
+
+    def get_login_route_filename(self) -> str:
+        return Path(self.login_route_file).name
+
+    def get_login_route_folder(self) -> str:
+        return str(Path(self.login_route_file).parent)
+
+    def get_login_route_path(self) -> str:
+        return str(Path(self.login_route_file))
+
+    def get_module_for_login_route(self, other_path: str | Path) -> str:
+        return get_module_str(self.login_route_file, str(other_path))
 
     def get_schema_filename(self, obj: AppObject) -> str:
         return self.get_modul_path(self.schema_file, obj).name
@@ -270,10 +298,12 @@ config_kludex = NameConfig(
     database_file='core/database',
     base_file='models/base',
     dependency_file='api/deps',
+    security_file='core/security',
     settings_file='core/config',
     model_file='models/{name}_model',
     route_file='api/v1/{name}_route',
     main_route_file='api/v1/routes',
+    login_route_file='api/v1/login',
     schema_file='schemas/{name}_schema',
     common_schema_file='schemas/common',
     repository_file='repo/{name}_repo',

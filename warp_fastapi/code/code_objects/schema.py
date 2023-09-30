@@ -156,14 +156,17 @@ def find_base_att(*sets: OrderedSet[AbstractVariableCode]) -> OrderedSet[Abstrac
 
 
 class CommonSchemaModule(SimpleModuleCode):
-    def __init__(self, config: NameConfig):
+    def __init__(self, config: NameConfig, secure: bool = False):
         self.filename = config.get_common_schema_filename()
         self.folder = config.get_common_schema_folder()
+        self.token = ''
+        if secure:
+            self.token = self._get_token_code()
 
     def __str__(self) -> str:
-        return """
+        return f"""
 from pydantic import AnyUrl, BaseModel, Field
-from typing import Annotated
+from typing import Annotated, Literal
 from fastapi import Query
 
 class Pagination(BaseModel):
@@ -177,7 +180,20 @@ class Pagination(BaseModel):
 class QuerySchema(BaseModel):
     attribute: Annotated[str | None, Query()] = Field(max_length=100)
     value: Annotated[str | None, Query()] = Field(max_length=1000)
-    sort: Annotated[str | None, Query()] = Field(max_length=100)
-    skip: int = Field(ge=0)
-    limit: int = Field(le=1000)
+    sort: Annotated[str | None, Query()] = Field(max_length=100, default=None)
+    skip: int = Field(ge=0, default=0)
+    limit: int = Field(le=1000, default=100)
+
+{self.token}
+"""
+
+    @staticmethod
+    def _get_token_code() -> str:
+        return """
+class Token(BaseModel):
+    access_token: str
+    token_type: Literal["bearer"]
+
+class TokenPayload(BaseModel):
+    user_id: int|None
 """

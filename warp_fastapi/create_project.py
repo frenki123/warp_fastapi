@@ -14,8 +14,9 @@ from .code.code_objects.dependacies import DependanciesModuleCode
 from .code.code_objects.main import MainModuleCode
 from .code.code_objects.model import ModelModuleCode
 from .code.code_objects.repository import RepoBaseModule, RepoModuleCode
-from .code.code_objects.routes import MainRouterCode, RoutesModuleCode
+from .code.code_objects.routes import LoginRouteModule, MainRouterCode, RoutesModuleCode
 from .code.code_objects.schema import CommonSchemaModule, SchemaModuleCode
+from .code.code_objects.security import SecurityModuleCode
 from .code.code_objects.service import ServiceModuleCode
 from .code.code_objects.settings import SettingsModuleCode
 from .code.code_objects.tests import ConfTestModuleCode, TestModuleCode
@@ -39,7 +40,16 @@ class ProjectCreator:
         self.project_dir = Path(project_dir, project.name)
         self.app_dir = self.project_dir / config.app_foldername
         self.test_dir = self.project_dir / 'tests'
-        self.requirements = ['fastapi[all]', 'sqlalchemy', 'alembic', 'black', 'ruff', 'pytest', 'pytest-cov', 'mypy']
+        self.requirements = [
+            'fastapi[all]',
+            'sqlalchemy',
+            'alembic',
+            'black',
+            'ruff',
+            'pytest',
+            'pytest-cov',
+            'mypy',
+        ]
         if requirements:
             self.requirements = requirements  # pragma: no cover
 
@@ -63,31 +73,46 @@ class ProjectCreator:
         self._copy_env_file()
         if self.deployment == 'Docker':
             self.requirements.append('psycopg2')
+        if self.project.auth_object:
+            self.requirements += [
+                'python-jose[cryptography]',
+                'passlib',
+                'bcrypt',
+                'types-python-jose',
+                'types-passlib',
+            ]
         self._generate_requirements_txt()
         self._generate_git_files()
         self._generate_startup_script()
         if self.deployment == 'Docker':
             self._generate_docker_files()
+        print('Cleaning up the code with black and ruff!')
         self._reformat_code()
 
     def _generate_const_file(self, update: bool) -> None:
+        secure = bool(self.project.auth_object)
         const_modules: list[AbstractModuleCode] = [
             MainModuleCode(self.project, self.config),
             DatabaseModuleCode(self.config),
-            DependanciesModuleCode(self.config),
+            DependanciesModuleCode(self.config, self.project.auth_object),
             SettingsModuleCode(self.config, self.project.name),
-            CommonSchemaModule(self.config),
+            CommonSchemaModule(self.config, secure),
             BaseModuleCode(self.project.app_objects, self.config),
             RepoBaseModule(self.config),
             MainRouterCode(self.project.app_objects, self.config),
         ]
+        if self.project.auth_object:
+            const_modules += [
+                LoginRouteModule(self.project.auth_object, self.config),
+                SecurityModuleCode(self.project.auth_object, self.config),
+            ]
 
         for module in const_modules:
             self._write_module(module, update, self.app_dir)
 
         test_modules: list[AbstractModuleCode] = [
             TestModuleCode(self.project.app_objects, self.config),
-            ConfTestModuleCode(self.project.app_objects, self.config),
+            ConfTestModuleCode(self.project.app_objects, self.config, secure),
         ]
         for module in test_modules:
             self._write_module(module, update, self.test_dir)

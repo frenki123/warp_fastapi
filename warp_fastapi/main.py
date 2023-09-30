@@ -229,12 +229,14 @@ class AppObject(TemplateModel):
     relationships: list[Relationship | BackpopulatesRelationship] = []
     back_populates_relationships: list[BackpopulatesRelationship] = []
     config: AppConfig = AppConfig()
+    secure: bool = False
 
     def __init__(
         self,
         name: str,
         *args: Attribute,
         config: AppConfig = AppConfig(),
+        secure: bool = False,
     ):
         """
         Initializes an instance of the `AppObject` class.
@@ -244,7 +246,7 @@ class AppObject(TemplateModel):
             *args: The attributes of the object.
             config (AppConfig): The configuration of the object.
         """
-        super().__init__(name=name, attributes=args, config=config)
+        super().__init__(name=name, attributes=args, config=config, secure=secure)
 
     def add_relationship(
         self,
@@ -487,6 +489,17 @@ class AppObject(TemplateModel):
         return self._plural.replace('_', '-')
 
 
+class AuthObject(AppObject):
+    def __init__(
+        self,
+        name: str,
+        *args: Attribute,
+        config: AppConfig = AppConfig(),
+        secure: bool = False,
+    ):
+        super().__init__(name, *args, config=config, secure=secure)
+
+
 class AppProject(TemplateModel):
     """
     A class that represents an app project.
@@ -497,8 +510,9 @@ class AppProject(TemplateModel):
     """
 
     app_objects: list[AppObject]
+    auth_object: AuthObject | None = None
 
-    def __init__(self, name: str, *args: AppObject):
+    def __init__(self, name: str, *args: AppObject, auth_object: AuthObject | None = None):
         """
         Initialize the project with the given name and app objects.
 
@@ -506,4 +520,12 @@ class AppProject(TemplateModel):
             name: The name of the project.
             args: A list of app objects for the project.
         """
-        super().__init__(name=name, app_objects=args)
+        if auth_object:
+            if auth_object not in args:
+                args = args + (auth_object,)
+        else:
+            for app_obj in args:
+                if app_obj.secure:
+                    raise Exception("App Object can't be secure without Authenication Object")
+
+        super().__init__(name=name, app_objects=args, auth_object=auth_object)

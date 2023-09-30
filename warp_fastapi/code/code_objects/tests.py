@@ -1,6 +1,6 @@
 import json
 
-from ...main import AppObject, Attribute
+from ...main import AppObject, Attribute, AuthObject
 from ...relationships import many_to_many
 from ..config import NameConfig
 from .base import (
@@ -16,10 +16,10 @@ pytest_dec = SimpleDecoratorCode(
 
 
 class ConfTestModuleCode(AbstractModuleCode):
-    def __init__(self, app_objs: list[AppObject], config: NameConfig):
+    def __init__(self, app_objs: list[AppObject], config: NameConfig, secure: bool = False):
         self.type_checking_imports = {}
         self.classes = []
-        self.functions = [self.get_client_function()]
+        self.functions = list(self.get_client_functions(secure))
         self.variables = []
         self.config = config
         self.folder = ''
@@ -29,9 +29,10 @@ class ConfTestModuleCode(AbstractModuleCode):
             'sqlalchemy': {'create_engine'},
             'sqlalchemy.orm': {'sessionmaker'},
             'sqlalchemy.pool': {'StaticPool'},
+            'fastapi': {'FastAPI'},
             'fastapi.testclient': {'TestClient'},
             config.get_module_for_tests(config.get_base_path()): {'Base'},
-            config.get_module_for_tests(config.get_dependency_path()): {'get_db'},
+            config.get_module_for_tests(config.get_dependency_path()): {'get_db', 'get_current_user'},
             f'{config.app_foldername}.main': {'app'},
         }
         self.create_fixtures(app_objs)
@@ -44,8 +45,8 @@ class ConfTestModuleCode(AbstractModuleCode):
             '\n'
         )
 
-    def get_client_function(self) -> SimpleFunctionCode:
-        content = """
+    def get_client_functions(self, secure: bool) -> list[SimpleFunctionCode]:
+        base_content = """
 TEST_DB = "sqlite://"
 engine = create_engine(
     TEST_DB,
@@ -63,15 +64,39 @@ def override_get_db():
         db.close()
 
 app.dependency_overrides[get_db] = override_get_db
-with TestClient(app) as c:
-    yield c
+return app
 """
-        f = SimpleFunctionCode(
-            name='client',
-            content=content,
+        base_f = SimpleFunctionCode(
+            name='base_client',
+            content=base_content,
             decorators=[pytest_dec],
         )
-        return f
+        client_content = """
+with TestClient(base_client) as c:
+    yield c"""
+        client_f = SimpleFunctionCode(
+            name='client',
+            content=client_content,
+            parametars=[SimpleVariable('base_client', 'FastAPI')],
+            decorators=[pytest_dec],
+        )
+        res = [base_f, client_f]
+        if secure:
+            secure_content = """
+def get_current_user_overide():
+    return "test"
+
+base_client.dependency_overrides[get_current_user] = get_current_user_overide
+with TestClient(base_client) as c:
+    yield c"""
+            secure_f = SimpleFunctionCode(
+                name='secure_client',
+                content=secure_content,
+                parametars=[SimpleVariable('base_client', 'FastAPI')],
+                decorators=[pytest_dec],
+            )
+            res.append(secure_f)
+        return res
 
     def create_fixtures(self, app_objs: list[AppObject]) -> None:
         for app_obj in app_objs:
@@ -104,10 +129,8 @@ class TestModuleCode(AbstractModuleCode):
         self.config = config
         self.folder = ''
         self.filename = 'test_route'
-        self.imports = {
-            'pytest': set(),
-            'fastapi.testclient': {'TestClient'},
-        }
+        secure_module = config.get_module_for_tests(config.get_security_path())
+        self.imports = {'pytest': set(), 'fastapi.testclient': {'TestClient'}, secure_module: {'is_valid_password'}}
         self.create_tests(app_objs)
 
     def __str__(self) -> str:
@@ -129,8 +152,11 @@ class TestModuleCode(AbstractModuleCode):
             self.functions.append(f)
 
     def get_test_data(self, app_obj: AppObject) -> tuple[list[SimpleVariable], str]:
+        client = 'client'
+        if app_obj.secure:
+            client = 'secure_client'
         params = [
-            SimpleVariable('client', 'TestClient'),
+            SimpleVariable(client, 'TestClient'),
             SimpleVariable(f'get_{app_obj.name}', 'dict[str,str|int]'),
         ]
         init_creation: dict[str, str] = {}
@@ -141,7 +167,10 @@ class TestModuleCode(AbstractModuleCode):
             res = get_att_data(att)
             if not isinstance(res, int):
                 res = f"'{res}'"
-            assert_att.append(f"assert data['{att.name}'] == {res}")
+            if isinstance(app_obj, AuthObject) and att.name == 'password':
+                assert_att.append('assert is_valid_password("password", data["password"])')
+            else:
+                assert_att.append(f"assert data['{att.name}'] == {res}")
         for rel in app_obj.all_relationships:
             rel_name = app_obj.get_rel_name(rel)
             rel_obj = app_obj.get_rel_obj(rel)
@@ -162,25 +191,25 @@ class TestModuleCode(AbstractModuleCode):
         content = f"""
 {init_creation_code}
 
-response = client.post('/api/v1/{app_obj.route_name}',json=get_{app_obj.name})
+response = {client}.post('/api/v1/{app_obj.route_name}',json=get_{app_obj.name})
 assert response.status_code == 201, response.text
 data = response.json()
 assert "id" in data
 id = data["id"]
 {assert_att_code}
 
-response = client.get(f"/api/v1/{app_obj.route_name}/{{id}}")
+response = {client}.get(f"/api/v1/{app_obj.route_name}/{{id}}")
 assert response.status_code == 200, response.text
 data = response.json()
 assert data["id"] == id
 {assert_att_code}
 
-response = client.delete(f"/api/v1/{app_obj.route_name}/{{id}}")
+response = {client}.delete(f"/api/v1/{app_obj.route_name}/{{id}}")
 assert response.status_code == 200, response.text
 data = response.json()
 assert data["message"] == "Resource successfully deleted."
 
-response = client.get(f"/api/v1/{app_obj.route_name}/{{id}}")
+response = {client}.get(f"/api/v1/{app_obj.route_name}/{{id}}")
 assert response.status_code == 404, response.text
 data = response.json()
 assert data["detail"] == f"{app_obj.class_name} with ID {{id}} not found!"
