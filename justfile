@@ -12,6 +12,7 @@ lint:
 # activate poetry shell
 activate:
     poetry shell
+# update all dependacies
 update:
     poetry update
 # make/update documentation
@@ -24,3 +25,9 @@ run-docs:
 run-new-docs:
     just make-docs
     just run-docs
+# run all needed commands before a commit and check new docs
+all:
+    just update
+    just lint
+    just test
+    just run-new-docs

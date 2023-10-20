@@ -31,7 +31,7 @@ from .relationships import (
 # TODO:add name validation for these attributes
 class AppConfig(BaseModel):
     """
-    A class representing the configuration of an app.
+    A class representing the configuration of an AppObject.
 
     Attributes:
         route_name (str | None): The route name for the app.

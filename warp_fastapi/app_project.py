@@ -10,6 +10,7 @@ class AppProject(TemplateModel):
 
     Attributes:
         name: str: The name of the model. Name should be snake_case. From TemplateModel
+        auth_object: AuthObject | None: Object that is used as authorization
         app_objects: list[AppObject]: The list of app objects in the project.
     """
 
@@ -22,7 +23,8 @@ class AppProject(TemplateModel):
 
         Args:
             name: The name of the project.
-            args: A list of app objects for the project.
+            args: AppObject: A list of app objects for the project.
+            auth_object: AuthObject|None: Authorization object.
         """
         if auth_object:
             if auth_object not in args:

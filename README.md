@@ -21,18 +21,17 @@ Prepare for liftoff into the Warp-FastApi universe by following these simple ste
 Assemble the core components of Warp-FastApi.
 
 ```
-from warp_fastapi import AppObject, Attribute, AppProject
-from warp_fastapi.sqlalch_types import string_type, int_type, date_only_type
-from warp_fastapi.relationships import one_to_many, one_to_one, many_to_many, many_to_one
-from warp_fastapi.create_project import ProjectCreator
+from warp_fastapi import AppObject, AppProject, ProjectCreator
+from warp_fastapi.attributes import StringAttribute, IntAttribute, NameAttribute
+from warp_fastapi.app_object import BasicUser
 ```
 
 ### **Warp-Define Attributes:**
 ```
 # Engage attributes
-a1 = Attribute("planet_name", string_type)
-a2 = Attribute("distance", int_type)
-name = Attribute("ship_name", string_type)
+a1 = StringAttribute("planet_name")
+a2 = IntAttribute("distance")
+ship_name = StringAttribute("ship_name")
 ```
 Define attributes with the precision of a star cartographer – each attribute corresponds to a specific celestial aspect. For more attribute types, refer to the SQL Types and Types documentation.
 
@@ -40,31 +39,34 @@ Define attributes with the precision of a star cartographer – each attribute c
 ```
 # Launch app spaceships
 planet = AppObject("planet", a1, a2)
-starship = AppObject("starship", name)
+starship = AppObject("starship", ship_name)
 ```
 Initiate AppObjects, the very vessels of your application – give them designations, program their functional cores (attributes), and propel them into the coding cosmos!
 
 You can also establish an AppObject with attributes directly:
 ```
-alien = AppObject("alien", 
-                Attribute("name", string_type), 
-                Attribute("species", string_type), 
-                Attribute("status", string_type, optional=True))
+alien = AppObject(
+    "alien",
+    NameAttribute(),
+    StringAttribute("species"),
+    StringAttribute("status", optional=True),
+)
 gadget = AppObject("gadget", 
-                Attribute("name", string_type))
+                   StringAttribute("name"))
 ```
 And don't forget to pack the optional "status" attribute for those unpredictable extraterrestrial encounters.
 
 ### **Navigate the Star Systems – Add Starship Relations:**
 ```
-planet.add_relationship(starship, one_to_many, "inhabited_by", "planet")
-starship.add_relationship(alien, one_to_many, "crew", "starship")
+planet.add_one_to_many_rel(starship, "inhabited_by", "planet")
+starship.add_one_to_many_rel(alien, "crew", "starship")
 ```
 Much like celestial systems gravitate towards one another, your app objects require meaningful connections. Forge these connections by signaling the objects, inputting coordinates, and assigning distinctive identifiers.
 
-The add_relationship function follows this structure:
+The function to add realtionship follows this structure:
 ```
-main_obj.add_realtionship(related_object, <side_of_main_obj>_to_<side_of_related_object> (eg. many_to_one), name_of_rel_in_main_obj, name_of_rel_in_related_object
+main_obj.add_<side_of_main_obj>_to_<side_of_related_object>_rel(
+    related_object, name_of_rel_in_main_obj, name_of_rel_in_related_object)
 ```
 Potential relationship types encompass:
 
@@ -73,15 +75,23 @@ Potential relationship types encompass:
 - many_to_one: The reverse of one_to_many, resulting in the main object as many and the related object as one. The related object is equipped with a list of main objects.
 - many_to_many: A mutual relationship where both objects feature lists of the other. This intricate linkage is managed through an association table in SQLAlchemy.
 
+### **Secure your mission:** 
+```
+mission = AppObject("mission", NameAttribute(), StringAttribute("desc"), secure=True)
+user = BasicUser()
+```
+With secure=True we assign that this resource can only be accessed with authorized user. BasicUser ensures that we have simple user for authorization (user with username and password).
 
 ### **Commence Warp Drive:** 
 ```
 # Set coordinates – AppObjects ready for warp
-project = AppProject("galactic_app", planet, starship, alien, gadget)
+project = AppProject(
+    "galactic_app", planet, starship, alien, gadget, mission, auth_object=user
+)
 
 # Engage the ProjectCreator, the command bridge of coding
 creator = ProjectCreator(project, project_dir=".")
-creator.create_project()  # Or use creator.update_project() for warp upgrades
+creator.create_project()
 ```
 
 ### **Explore New Discovery:**
