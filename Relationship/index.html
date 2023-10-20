@@ -9,14 +9,14 @@
       
       
       
-        <link rel="prev" href="../SQL_Types/">
+        <link rel="prev" href="../Types/">
       
       
         <link rel="next" href="../todo/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.4">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.0e669242.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.35e1ed30.min.css">
       
       
 
@@ -67,7 +67,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#warp_fastapi.main.Relationship" class="md-skip">
+        <a href="#warp_fastapi.relationships" class="md-skip">
           Skip to content
         </a>
       
@@ -285,25 +285,6 @@
       
   
   
-  
-    <li class="md-nav__item">
-      <a href="../SQL_Types/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    SQL tyes
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -348,8 +329,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#warp_fastapi.main.Relationship" class="md-nav__link">
+  <a href="#warp_fastapi.relationships" class="md-nav__link">
+    relationships
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.relationships.BackpopulatesRelationship" class="md-nav__link">
+    BackpopulatesRelationship
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.relationships.Relationship" class="md-nav__link">
     Relationship
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.relationships.create_relationship" class="md-nav__link">
+    create_relationship()
   </a>
   
 </li>
@@ -425,8 +427,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#warp_fastapi.main.Relationship" class="md-nav__link">
+  <a href="#warp_fastapi.relationships" class="md-nav__link">
+    relationships
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.relationships.BackpopulatesRelationship" class="md-nav__link">
+    BackpopulatesRelationship
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.relationships.Relationship" class="md-nav__link">
     Relationship
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.relationships.create_relationship" class="md-nav__link">
+    create_relationship()
   </a>
   
 </li>
@@ -448,14 +471,254 @@
 
   <h1>Relationship</h1>
 
+<div class="doc doc-object doc-module">
+
+
+
+<a id="warp_fastapi.relationships"></a>
+  <div class="doc doc-contents first">
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
 <div class="doc doc-object doc-class">
 
 
 
-<a id="warp_fastapi.main.Relationship"></a>
-  <div class="doc doc-contents first">
+
+<h2 id="warp_fastapi.relationships.BackpopulatesRelationship" class="doc doc-heading">
+          <code>BackpopulatesRelationship</code>
+
+
+</h2>
+
+
+  <div class="doc doc-contents ">
           <p class="doc doc-class-bases">
-            Bases: <code><span title="warp_fastapi.main.TemplateModel">TemplateModel</span></code></p>
+            Bases: <code><span title="warp_fastapi.base.TemplateModel">TemplateModel</span></code></p>
+
+  
+      <p>A class representing a backpopulates relationship between two objects.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>name</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The name of the relationship.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>obj</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="warp_fastapi.app_object.AppObject" href="../AppObject/#warp_fastapi.app_object.AppObject">AppObject</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The object that this relationship is associated with.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>type</code></td>
+          <td>
+                <code><span title="warp_fastapi.relationships.RelationshipType">RelationshipType</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The type of relationship.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>back_populates_name</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The name of the backpopulates relationship on the related object.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>back_populates_object</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="warp_fastapi.app_object.AppObject" href="../AppObject/#warp_fastapi.app_object.AppObject">AppObject</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The related object.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>optional</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Whether the relationship is optional. Defaults to False.</p>
+            </div>
+          </td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+            <details class="quote">
+              <summary>Source code in <code>warp_fastapi\relationships.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span>
+<span class="normal">95</span>
+<span class="normal">96</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">BackpopulatesRelationship</span><span class="p">(</span><span class="n">TemplateModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class representing a backpopulates relationship between two objects.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name (str): The name of the relationship.</span>
+<span class="sd">        obj (AppObject): The object that this relationship is associated with.</span>
+<span class="sd">        type (RelationshipType): The type of relationship.</span>
+<span class="sd">        back_populates_name (str): The name of the backpopulates relationship on the related object.</span>
+<span class="sd">        back_populates_object (AppObject): The related object.</span>
+<span class="sd">        optional (bool, optional): Whether the relationship is optional. Defaults to False.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">related_object</span><span class="p">:</span> <span class="n">AppObject</span>
+    <span class="n">relationship_type</span><span class="p">:</span> <span class="n">RelationshipType</span>
+    <span class="n">optional</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">back_populates_name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">back_populates_object</span><span class="p">:</span> <span class="n">AppObject</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">obj</span><span class="p">:</span> <span class="n">AppObject</span><span class="p">,</span>
+        <span class="nb">type</span><span class="p">:</span> <span class="n">RelationshipType</span><span class="p">,</span>
+        <span class="n">back_populates_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">back_populates_object</span><span class="p">:</span> <span class="n">AppObject</span><span class="p">,</span>
+        <span class="n">optional</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">related_object</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span>
+            <span class="n">relationship_type</span><span class="o">=</span><span class="nb">type</span><span class="p">,</span>
+            <span class="n">optional</span><span class="o">=</span><span class="n">optional</span><span class="p">,</span>
+            <span class="n">back_populates_object</span><span class="o">=</span><span class="n">back_populates_object</span><span class="p">,</span>
+            <span class="n">back_populates_name</span><span class="o">=</span><span class="n">back_populates_name</span><span class="p">,</span>
+        <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+
+<h2 id="warp_fastapi.relationships.Relationship" class="doc doc-heading">
+          <code>Relationship</code>
+
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="warp_fastapi.base.TemplateModel">TemplateModel</span></code></p>
 
   
       <p>A class representing a relationship between two objects.</p>
@@ -490,7 +753,7 @@
         <tr>
           <td><code>obj</code></td>
           <td>
-                <code><a class="autorefs autorefs-internal" title="warp_fastapi.main.AppObject" href="../AppObject/#warp_fastapi.main.AppObject">AppObject</a></code>
+                <code><a class="autorefs autorefs-internal" title="warp_fastapi.app_object.AppObject" href="../AppObject/#warp_fastapi.app_object.AppObject">AppObject</a></code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -557,40 +820,40 @@
   </table>
 
             <details class="quote">
-              <summary>Source code in <code>warp_fastapi\main.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 98</span>
-<span class="normal"> 99</span>
-<span class="normal">100</span>
-<span class="normal">101</span>
-<span class="normal">102</span>
-<span class="normal">103</span>
-<span class="normal">104</span>
-<span class="normal">105</span>
-<span class="normal">106</span>
-<span class="normal">107</span>
-<span class="normal">108</span>
-<span class="normal">109</span>
-<span class="normal">110</span>
-<span class="normal">111</span>
-<span class="normal">112</span>
-<span class="normal">113</span>
-<span class="normal">114</span>
-<span class="normal">115</span>
-<span class="normal">116</span>
-<span class="normal">117</span>
-<span class="normal">118</span>
-<span class="normal">119</span>
-<span class="normal">120</span>
-<span class="normal">121</span>
-<span class="normal">122</span>
-<span class="normal">123</span>
-<span class="normal">124</span>
-<span class="normal">125</span>
-<span class="normal">126</span>
-<span class="normal">127</span>
-<span class="normal">128</span>
-<span class="normal">129</span>
-<span class="normal">130</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Relationship</span><span class="p">(</span><span class="n">TemplateModel</span><span class="p">):</span>
+              <summary>Source code in <code>warp_fastapi\relationships.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Relationship</span><span class="p">(</span><span class="n">TemplateModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class representing a relationship between two objects.</span>
 
@@ -648,6 +911,97 @@
 
 
 
+<div class="doc doc-object doc-function">
+
+
+
+
+<h2 id="warp_fastapi.relationships.create_relationship" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">create_relationship</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">back_populates_object</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">back_populates_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">optional</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Creates a relationship between two objects.</p>
+<p>Args:
+name (str): The name of the relationship.
+obj (AppObject): The object that this relationship is associated with.
+type (RelationshipType): The type of relationship.
+back_populates_object (AppObject | None): The related object.
+back_populates_name (str | None): The name of the backpopulates relationship on the related object.
+optional (bool): Whether the relationship is optional. Defaults to False.</p>
+<p>Returns:
+Relationship | BackpopulatesRelationship: The created relationship.</p>
+
+          <details class="quote">
+            <summary>Source code in <code>warp_fastapi\relationships.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">create_relationship</span><span class="p">(</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">obj</span><span class="p">:</span> <span class="n">AppObject</span><span class="p">,</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="n">RelationshipType</span><span class="p">,</span>
+    <span class="n">back_populates_object</span><span class="p">:</span> <span class="n">AppObject</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">back_populates_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">optional</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Relationship</span> <span class="o">|</span> <span class="n">BackpopulatesRelationship</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a relationship between two objects.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">    name (str): The name of the relationship.</span>
+<span class="sd">    obj (AppObject): The object that this relationship is associated with.</span>
+<span class="sd">    type (RelationshipType): The type of relationship.</span>
+<span class="sd">    back_populates_object (AppObject | None): The related object.</span>
+<span class="sd">    back_populates_name (str | None): The name of the backpopulates relationship on the related object.</span>
+<span class="sd">    optional (bool): Whether the relationship is optional. Defaults to False.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    Relationship | BackpopulatesRelationship: The created relationship.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">back_populates_name</span> <span class="ow">and</span> <span class="n">back_populates_object</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">BackpopulatesRelationship</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">back_populates_name</span><span class="p">,</span> <span class="n">back_populates_object</span><span class="p">,</span> <span class="n">optional</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Relationship</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
 
 
                 
@@ -682,10 +1036,11 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.78eede0e.min.js"></script>
+      <script src="../assets/javascripts/bundle.aecac24b.min.js"></script>
       
     
   </body>

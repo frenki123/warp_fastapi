@@ -12,11 +12,11 @@
         <link rel="prev" href="../AppProject/">
       
       
-        <link rel="next" href="../SQL_Types/">
+        <link rel="next" href="../Relationship/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.4">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.0e669242.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.35e1ed30.min.css">
       
       
 
@@ -67,7 +67,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#warp_fastapi.types.DataType" class="md-skip">
+        <a href="#warp_fastapi.data_types" class="md-skip">
           Skip to content
         </a>
       
@@ -310,23 +310,127 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#warp_fastapi.types.DataType" class="md-nav__link">
-    DataType
+  <a href="#warp_fastapi.data_types" class="md-nav__link">
+    data_types
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#warp_fastapi.types.DataType.__init__" class="md-nav__link">
+  <a href="#warp_fastapi.data_types.bigint_type" class="md-nav__link">
+    bigint_type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.bool_type" class="md-nav__link">
+    bool_type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.date_only_type" class="md-nav__link">
+    date_only_type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.date_time_type" class="md-nav__link">
+    date_time_type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.decimal_type" class="md-nav__link">
+    decimal_type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.email_type" class="md-nav__link">
+    email_type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.float_type" class="md-nav__link">
+    float_type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.int_type" class="md-nav__link">
+    int_type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.string_type" class="md-nav__link">
+    string_type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.text_type" class="md-nav__link">
+    text_type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.time_type" class="md-nav__link">
+    time_type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.timedelta_type" class="md-nav__link">
+    timedelta_type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.unicode_type" class="md-nav__link">
+    unicode_type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.DataType" class="md-nav__link">
+    DataType
+  </a>
+  
+    <nav class="md-nav" aria-label="DataType">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.DataType.__init__" class="md-nav__link">
     __init__()
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#warp_fastapi.types.DataType.add_pydantic_type" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.DataType.add_pydantic_type" class="md-nav__link">
     add_pydantic_type()
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -334,25 +438,6 @@
   
 </nav>
       
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../SQL_Types/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    SQL tyes
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -439,23 +524,127 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#warp_fastapi.types.DataType" class="md-nav__link">
-    DataType
+  <a href="#warp_fastapi.data_types" class="md-nav__link">
+    data_types
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#warp_fastapi.types.DataType.__init__" class="md-nav__link">
+  <a href="#warp_fastapi.data_types.bigint_type" class="md-nav__link">
+    bigint_type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.bool_type" class="md-nav__link">
+    bool_type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.date_only_type" class="md-nav__link">
+    date_only_type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.date_time_type" class="md-nav__link">
+    date_time_type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.decimal_type" class="md-nav__link">
+    decimal_type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.email_type" class="md-nav__link">
+    email_type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.float_type" class="md-nav__link">
+    float_type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.int_type" class="md-nav__link">
+    int_type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.string_type" class="md-nav__link">
+    string_type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.text_type" class="md-nav__link">
+    text_type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.time_type" class="md-nav__link">
+    time_type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.timedelta_type" class="md-nav__link">
+    timedelta_type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.unicode_type" class="md-nav__link">
+    unicode_type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.DataType" class="md-nav__link">
+    DataType
+  </a>
+  
+    <nav class="md-nav" aria-label="DataType">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.DataType.__init__" class="md-nav__link">
     __init__()
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#warp_fastapi.types.DataType.add_pydantic_type" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#warp_fastapi.data_types.DataType.add_pydantic_type" class="md-nav__link">
     add_pydantic_type()
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -476,12 +665,349 @@
 
   <h1>Types</h1>
 
+<div class="doc doc-object doc-module">
+
+
+
+<a id="warp_fastapi.data_types"></a>
+  <div class="doc doc-contents first">
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+
+<h2 id="warp_fastapi.data_types.bigint_type" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">bigint_type</span> <span class="o">=</span> <span class="n">DataType</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;BigInteger&#39;</span><span class="p">,</span> <span class="s1">&#39;sqlalchemy.types&#39;</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The <code>bigint_type</code> variable is a shortcut for creating a <code>DataType</code>
+object that represents the <code>int</code> Python type and the <code>BigInteger</code> database type.</p>
+<p>The <code>pydantic_type</code> attribute of the <code>bigint_type</code> variable is set to <code>None</code>.</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+
+<h2 id="warp_fastapi.data_types.bool_type" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">bool_type</span> <span class="o">=</span> <span class="n">DataType</span><span class="p">(</span><span class="nb">bool</span><span class="p">,</span> <span class="s1">&#39;Boolean&#39;</span><span class="p">,</span> <span class="s1">&#39;sqlalchemy.types&#39;</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The <code>bool_type</code> variable is a shortcut for creating a <code>DataType</code>
+ that represents the <code>bool</code> Python type and the <code>Boolean</code> database type.</p>
+<p>The <code>pydantic_type</code> attribute of the <code>bool_type</code> variable is set to <code>None</code>.</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+
+<h2 id="warp_fastapi.data_types.date_only_type" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">date_only_type</span> <span class="o">=</span> <span class="n">DataType</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="s1">&#39;sqlalchemy.types&#39;</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The <code>date_only_type</code> variable is a shortcut for creating a <code>DataType</code>
+object that represents the <code>date</code> Python type and the <code>Date</code> database type.</p>
+<p>The <code>pydantic_type</code> attribute of the <code>date_only_type</code> variable is set to <code>None</code>.</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+
+<h2 id="warp_fastapi.data_types.date_time_type" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">date_time_type</span> <span class="o">=</span> <span class="n">DataType</span><span class="p">(</span><span class="n">datetime</span><span class="p">,</span> <span class="s1">&#39;DateTime&#39;</span><span class="p">,</span> <span class="s1">&#39;sqlalchemy.types&#39;</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The <code>date_time_type</code> variable is a shortcut for creating a <code>DataType</code>
+ that represents the <code>datetime</code> Python type and the <code>DateTime</code> database type.</p>
+<p>The <code>pydantic_type</code> attribute of the <code>date_time_type</code> variable is set to <code>None</code>.</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+
+<h2 id="warp_fastapi.data_types.decimal_type" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">decimal_type</span> <span class="o">=</span> <span class="n">DataType</span><span class="p">(</span><span class="n">Decimal</span><span class="p">,</span> <span class="s1">&#39;Numeric&#39;</span><span class="p">,</span> <span class="s1">&#39;sqlalchemy.types&#39;</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The <code>decimal_type</code> variable is a shortcut for creating a <code>DataType</code>
+object that represents the <code>Decimal</code> Python type and the <code>Numeric</code> database type.</p>
+<p>The <code>pydantic_type</code> attribute of the <code>decimal_type</code> variable is set to <code>None</code>.</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+
+<h2 id="warp_fastapi.data_types.email_type" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">email_type</span> <span class="o">=</span> <span class="n">DataType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;String&#39;</span><span class="p">,</span> <span class="s1">&#39;sqlalchemy.types&#39;</span><span class="p">,</span> <span class="s1">&#39;EmailStr&#39;</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The <code>email_type</code> variable is a shortcut for creating a <code>DataType</code>
+object that represents the <code>str</code> Python type and the <code>String</code> database type.</p>
+<p>The <code>pydantic_type</code> attribute of the <code>email_type</code> variable is set to <code>EmailStr</code>.</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+
+<h2 id="warp_fastapi.data_types.float_type" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">float_type</span> <span class="o">=</span> <span class="n">DataType</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="s1">&#39;Float&#39;</span><span class="p">,</span> <span class="s1">&#39;sqlalchemy.types&#39;</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The <code>float_type</code> variable is a shortcut for creating a <code>DataType</code>
+object that represents the <code>float</code> Python type and the <code>Float</code> database type.</p>
+<p>The <code>pydantic_type</code> attribute of the <code>float_type</code> variable is set to <code>None</code>.</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+
+<h2 id="warp_fastapi.data_types.int_type" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">int_type</span> <span class="o">=</span> <span class="n">DataType</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;Integer&#39;</span><span class="p">,</span> <span class="s1">&#39;sqlalchemy.types&#39;</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The <code>int_type</code> variable is a shortcut for creating a <code>DataType</code> object
+that represents the <code>int</code> Python type and the <code>Integer</code> database type.</p>
+<p>The <code>pydantic_type</code> attribute of the <code>int_type</code> variable is set to <code>None</code>.</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+
+<h2 id="warp_fastapi.data_types.string_type" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">string_type</span> <span class="o">=</span> <span class="n">DataType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;String&#39;</span><span class="p">,</span> <span class="s1">&#39;sqlalchemy.types&#39;</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The <code>string_type</code> variable is a shortcut for creating a <code>DataType</code>
+object that represents the <code>str</code> Python type and the <code>String</code> database type.</p>
+<p>The <code>pydantic_type</code> attribute of the <code>string_type</code> variable is set to <code>None</code>.</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+
+<h2 id="warp_fastapi.data_types.text_type" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">text_type</span> <span class="o">=</span> <span class="n">DataType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;Text&#39;</span><span class="p">,</span> <span class="s1">&#39;sqlalchemy.types&#39;</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The <code>text_type</code> variable is a shortcut for creating a <code>DataType</code>
+object that represents the <code>str</code> Python type and the <code>Text</code> database type.</p>
+<p>The <code>pydantic_type</code> attribute of the <code>text_type</code> variable is set to <code>None</code>.</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+
+<h2 id="warp_fastapi.data_types.time_type" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">time_type</span> <span class="o">=</span> <span class="n">DataType</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="s1">&#39;sqlalchemy.types&#39;</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The <code>time_type</code> variable is a shortcut for creating a <code>DataType</code>
+object that represents the <code>time</code> Python type and the <code>Time</code> database type.</p>
+<p>The <code>pydantic_type</code> attribute of the <code>time_type</code> variable is set to <code>None</code>.</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+
+<h2 id="warp_fastapi.data_types.timedelta_type" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">timedelta_type</span> <span class="o">=</span> <span class="n">DataType</span><span class="p">(</span><span class="n">timedelta</span><span class="p">,</span> <span class="s1">&#39;Interval&#39;</span><span class="p">,</span> <span class="s1">&#39;sqlalchemy.types&#39;</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The <code>timedelta_type</code> variable is a shortcut for creating a <code>DataType</code>
+object that represents the <code>timedelta</code> Python type and the <code>Interval</code> database type.</p>
+<p>The <code>pydantic_type</code> attribute of the <code>timedelta_type</code> variable is set to <code>None</code>.</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+
+<h2 id="warp_fastapi.data_types.unicode_type" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">unicode_type</span> <span class="o">=</span> <span class="n">DataType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;Unicode&#39;</span><span class="p">,</span> <span class="s1">&#39;sqlalchemy.types&#39;</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The <code>unicode_type</code> variable is a shortcut for creating a <code>DataType</code>
+object that represents the <code>str</code> Python type and the <code>Unicode</code> database type.</p>
+<p>The <code>pydantic_type</code> attribute of the <code>unicode_type</code> variable is set to <code>None</code>.</p>
+  </div>
+
+</div>
+
+
 <div class="doc doc-object doc-class">
 
 
 
-<a id="warp_fastapi.types.DataType"></a>
-  <div class="doc doc-contents first">
+
+<h2 id="warp_fastapi.data_types.DataType" class="doc doc-heading">
+          <code>DataType</code>
+
+
+</h2>
+
+
+  <div class="doc doc-contents ">
           <p class="doc doc-class-bases">
             Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
 
@@ -581,9 +1107,8 @@
   </table>
 
             <details class="quote">
-              <summary>Source code in <code>warp_fastapi\types.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 6</span>
-<span class="normal"> 7</span>
+              <summary>Source code in <code>warp_fastapi\data_types.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 7</span>
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
 <span class="normal">10</span>
@@ -627,7 +1152,8 @@
 <span class="normal">48</span>
 <span class="normal">49</span>
 <span class="normal">50</span>
-<span class="normal">51</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">DataType</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="normal">51</span>
+<span class="normal">52</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">DataType</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    DataType object used in fastapiez</span>
 
@@ -648,7 +1174,7 @@
     <span class="n">db_module</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">pydantic_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">python_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span> <span class="n">db_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span> <span class="n">pydantic_type</span><span class="p">:</span> <span class="nb">type</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">python_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span> <span class="n">db_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">db_module</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pydantic_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes a new `DataType` instance.</span>
 <span class="sd">        Args:</span>
@@ -659,20 +1185,20 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">python_type</span><span class="o">=</span><span class="n">python_type</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
             <span class="n">python_module</span><span class="o">=</span><span class="n">python_type</span><span class="o">.</span><span class="vm">__module__</span><span class="p">,</span>
-            <span class="n">db_type</span><span class="o">=</span><span class="n">db_type</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
-            <span class="n">db_module</span><span class="o">=</span><span class="n">db_type</span><span class="o">.</span><span class="vm">__module__</span><span class="p">,</span>
+            <span class="n">db_type</span><span class="o">=</span><span class="n">db_type</span><span class="p">,</span>
+            <span class="n">db_module</span><span class="o">=</span><span class="n">db_module</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">pydantic_type</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add_pydantic_type</span><span class="p">(</span><span class="n">pydantic_type</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">add_pydantic_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="nb">type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">add_pydantic_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds the given Pydantic type to the data type.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            t (type): The Pydantic type to add.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pydantic_type</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pydantic_type</span> <span class="o">=</span> <span class="n">t</span>
 </code></pre></div></td></tr></table></div>
             </details>
 
@@ -694,78 +1220,23 @@
 
 
 
-<h2 id="warp_fastapi.types.DataType.__init__" class="doc doc-heading">
-          <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">python_type</span><span class="p">,</span> <span class="n">db_type</span><span class="p">,</span> <span class="n">pydantic_type</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+<h3 id="warp_fastapi.data_types.DataType.__init__" class="doc doc-heading">
+          <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">python_type</span><span class="p">,</span> <span class="n">db_type</span><span class="p">,</span> <span class="n">db_module</span><span class="p">,</span> <span class="n">pydantic_type</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-</h2>
+</h3>
 
 
   <div class="doc doc-contents ">
   
-      <p>Initializes a new <code>DataType</code> instance.</p>
-
-
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>python_type</code></td>
-          <td>
-                <code>type</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The Python type of the data type.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>db_type</code></td>
-          <td>
-                <code>type</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The database type of the data type.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>pydantic_type</code></td>
-          <td>
-                <code>type</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The Pydantic type of the data type. Defaults to None.</p>
-            </div>
-          </td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-    </tbody>
-  </table>
+      <p>Initializes a new <code>DataType</code> instance.
+Args:
+    python_type (type): The Python type of the data type.
+    db_type (type): The database type of the data type.
+    pydantic_type (type, optional): The Pydantic type of the data type. Defaults to None.</p>
 
           <details class="quote">
-            <summary>Source code in <code>warp_fastapi\types.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">27</span>
-<span class="normal">28</span>
+            <summary>Source code in <code>warp_fastapi\data_types.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">28</span>
 <span class="normal">29</span>
 <span class="normal">30</span>
 <span class="normal">31</span>
@@ -779,7 +1250,8 @@
 <span class="normal">39</span>
 <span class="normal">40</span>
 <span class="normal">41</span>
-<span class="normal">42</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">python_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span> <span class="n">db_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span> <span class="n">pydantic_type</span><span class="p">:</span> <span class="nb">type</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="normal">42</span>
+<span class="normal">43</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">python_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span> <span class="n">db_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">db_module</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pydantic_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Initializes a new `DataType` instance.</span>
 <span class="sd">    Args:</span>
@@ -790,8 +1262,8 @@
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
         <span class="n">python_type</span><span class="o">=</span><span class="n">python_type</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
         <span class="n">python_module</span><span class="o">=</span><span class="n">python_type</span><span class="o">.</span><span class="vm">__module__</span><span class="p">,</span>
-        <span class="n">db_type</span><span class="o">=</span><span class="n">db_type</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
-        <span class="n">db_module</span><span class="o">=</span><span class="n">db_type</span><span class="o">.</span><span class="vm">__module__</span><span class="p">,</span>
+        <span class="n">db_type</span><span class="o">=</span><span class="n">db_type</span><span class="p">,</span>
+        <span class="n">db_module</span><span class="o">=</span><span class="n">db_module</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">if</span> <span class="n">pydantic_type</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_pydantic_type</span><span class="p">(</span><span class="n">pydantic_type</span><span class="p">)</span>
@@ -807,10 +1279,10 @@
 
 
 
-<h2 id="warp_fastapi.types.DataType.add_pydantic_type" class="doc doc-heading">
+<h3 id="warp_fastapi.data_types.DataType.add_pydantic_type" class="doc doc-heading">
           <code class="highlight language-python"><span class="n">add_pydantic_type</span><span class="p">(</span><span class="n">t</span><span class="p">)</span></code>
 
-</h2>
+</h3>
 
 
   <div class="doc doc-contents ">
@@ -848,27 +1320,36 @@
   </table>
 
           <details class="quote">
-            <summary>Source code in <code>warp_fastapi\types.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">44</span>
-<span class="normal">45</span>
+            <summary>Source code in <code>warp_fastapi\data_types.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">45</span>
 <span class="normal">46</span>
 <span class="normal">47</span>
 <span class="normal">48</span>
 <span class="normal">49</span>
 <span class="normal">50</span>
-<span class="normal">51</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">add_pydantic_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="nb">type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">51</span>
+<span class="normal">52</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">add_pydantic_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Adds the given Pydantic type to the data type.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        t (type): The Pydantic type to add.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">pydantic_type</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="vm">__name__</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">pydantic_type</span> <span class="o">=</span> <span class="n">t</span>
 </code></pre></div></td></tr></table></div>
           </details>
   </div>
 
 </div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
 
 
 
@@ -914,10 +1395,11 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.78eede0e.min.js"></script>
+      <script src="../assets/javascripts/bundle.aecac24b.min.js"></script>
       
     
   </body>
