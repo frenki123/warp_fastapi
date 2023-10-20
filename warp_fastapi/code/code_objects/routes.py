@@ -1,5 +1,5 @@
-from ...main import AppObject, AuthObject
-from ..config import NameConfig
+from ... import AppObject, AuthObject
+from ...config import NameConfig
 from .base import (
     SimpleModuleCode,
 )

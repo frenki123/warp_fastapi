@@ -1,1 +1,1 @@
-:::warp_fastapi.main.Relationship
+:::warp_fastapi.relationships

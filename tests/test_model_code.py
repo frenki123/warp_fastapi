@@ -8,9 +8,8 @@ from warp_fastapi.code.code_objects.model import (
     ModelModuleCode,
     RelationshipCode,
 )
-from warp_fastapi.code.config import NameConfig
-from warp_fastapi.main import BackpopulatesRelationship
-from warp_fastapi.relationships import many_to_many, many_to_one, one_to_many, one_to_one
+from warp_fastapi.config import NameConfig
+from warp_fastapi.relationships import BackpopulatesRelationship, many_to_many, many_to_one, one_to_many, one_to_one
 
 from .conftest import assert_code_lines
 

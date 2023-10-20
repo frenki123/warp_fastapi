@@ -1,4 +1,4 @@
-from ..config import NameConfig
+from ...config import NameConfig
 
 
 def get_alembic_ini_code(config: NameConfig) -> str:

@@ -1,1 +1,1 @@
-:::warp_fastapi.main.AppObject
+:::warp_fastapi.app_object

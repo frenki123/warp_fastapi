@@ -2,6 +2,7 @@ import subprocess
 from pathlib import Path
 from typing import Literal
 
+from . import AppObject, AppProject
 from .code.alembic.alembic import (
     get_alembic_env_code,
     get_alembic_ini_code,
@@ -20,9 +21,8 @@ from .code.code_objects.security import SecurityModuleCode
 from .code.code_objects.service import ServiceModuleCode
 from .code.code_objects.settings import SettingsModuleCode
 from .code.code_objects.tests import ConfTestModuleCode, TestModuleCode
-from .code.config import NameConfig
+from .config import NameConfig
 from .code.devops import docker, dotenv, git, local
-from .main import AppObject, AppProject
 
 
 class ProjectCreator:

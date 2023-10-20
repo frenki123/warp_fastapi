@@ -1,6 +1,6 @@
-from ...main import AppObject, Attribute, BackpopulatesRelationship, Relationship
-from ...relationships import many_to_many, one_to_one
-from ..config import NameConfig
+from ... import AppObject, Attribute
+from ...relationships import BackpopulatesRelationship, Relationship, many_to_many, one_to_one
+from ...config import NameConfig
 from .base import (
     AbstractClassCode,
     AbstractFunctionCode,

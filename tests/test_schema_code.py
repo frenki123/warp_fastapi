@@ -1,7 +1,7 @@
 from warp_fastapi import AppObject, Attribute
 from warp_fastapi.code.code_objects.schema import AttributeCode, CommonSchemaModule, RelationshipCode, SchemaModuleCode
-from warp_fastapi.code.config import NameConfig
-from warp_fastapi.sqlalch_types import email_type
+from warp_fastapi.config import NameConfig
+from warp_fastapi.data_types import email_type
 
 from .conftest import assert_code_lines
 

@@ -1,5 +1,5 @@
 from warp_fastapi.code.alembic.alembic import get_alembic_env_code
-from warp_fastapi.code.config import NameConfig, config_kludex
+from warp_fastapi.config import NameConfig, config_kludex
 
 from .conftest import assert_code_lines
 

@@ -1,1 +1,1 @@
-:::warp_fastapi.main.Attribute
+:::warp_fastapi.attributes

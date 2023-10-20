@@ -1,6 +1,6 @@
 from warp_fastapi import AppObject, Attribute
 from warp_fastapi.code.code_objects.tests import ConfTestModuleCode, TestModuleCode as TModuleCode
-from warp_fastapi.code.config import NameConfig
+from warp_fastapi.config import NameConfig
 
 from .conftest import assert_code_lines
 

@@ -1,4 +1,4 @@
-from ...code.config import NameConfig
+from ...config import NameConfig
 
 
 def get_authentication_code(config: NameConfig = NameConfig()) -> str:

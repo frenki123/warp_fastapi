@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from warp_fastapi import AppProject
-from warp_fastapi.code.config import NameConfig
+from warp_fastapi.config import NameConfig
 from warp_fastapi.create_project import ProjectCreator
 
 

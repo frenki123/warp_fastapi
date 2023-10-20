@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 
 from warp_fastapi import AppObject
-from warp_fastapi.code.config import NameConfig
+from warp_fastapi.config import NameConfig
 
 
 def test_main_config(app_obj: AppObject):

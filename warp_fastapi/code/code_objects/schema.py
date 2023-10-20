@@ -1,7 +1,8 @@
 from ordered_set import OrderedSet
 
-from ...main import AppObject, Attribute, BackpopulatesRelationship, Relationship
-from ..config import NameConfig
+from ... import AppObject, Attribute
+from ...relationships import BackpopulatesRelationship, Relationship
+from ...config import NameConfig
 from .base import (
     AbstractModuleCode,
     AbstractVariableCode,

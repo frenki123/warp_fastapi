@@ -1,1 +1,1 @@
-:::warp_fastapi.main.AppProject
+:::warp_fastapi.app_project

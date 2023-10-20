@@ -1,8 +1,8 @@
 import json
 
-from ...main import AppObject, Attribute, AuthObject
+from ... import AppObject, Attribute, AuthObject
 from ...relationships import many_to_many
-from ..config import NameConfig
+from ...config import NameConfig
 from .base import (
     AbstractModuleCode,
     SimpleDecoratorCode,

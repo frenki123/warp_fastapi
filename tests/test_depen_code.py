@@ -1,5 +1,5 @@
 from warp_fastapi.code.code_objects.dependacies import DependanciesModuleCode
-from warp_fastapi.code.config import NameConfig
+from warp_fastapi.config import NameConfig
 
 from .conftest import assert_code_lines
 

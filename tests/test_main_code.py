@@ -1,6 +1,6 @@
 from warp_fastapi import AppProject
 from warp_fastapi.code.code_objects.main import MainModuleCode
-from warp_fastapi.code.config import NameConfig
+from warp_fastapi.config import NameConfig
 
 from .conftest import assert_code_lines
 

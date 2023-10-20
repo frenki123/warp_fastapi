@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Any
 
-from ...main import AppObject
-from ..config import NameConfig
+from ... import AppObject
+from ...config import NameConfig
 from ..utils import ident_text
 
 

@@ -1,36 +1,26 @@
 from datetime import date
 
 import pytest
-from pydantic import EmailStr
-from sqlalchemy import Date
 
+from warp_fastapi import AppObject, AppProject, Attribute, AuthObject
+from warp_fastapi.app_object import AppConfig
+from warp_fastapi.base import TemplateModel
+from warp_fastapi.data_types import DataType, string_type
 from warp_fastapi.exceptions import RelationshipException
-from warp_fastapi.main import (
-    AppConfig,
-    AppObject,
-    AppProject,
-    Attribute,
-    AuthObject,
-    BackpopulatesRelationship,
-    TemplateModel,
-    create_relationship,
-)
-from warp_fastapi.relationships import many_to_many, one_to_many
-from warp_fastapi.sqlalch_types import string_type
-from warp_fastapi.types import DataType
+from warp_fastapi.relationships import BackpopulatesRelationship, create_relationship, many_to_many, one_to_many
 
 
 def test_datatype():
-    data_type = DataType(python_type=date, db_type=Date)
+    data_type = DataType(python_type=date, db_type='Date', db_module='sqlalchemy.types')
     assert data_type.python_type == 'date'
     assert data_type.python_module == 'datetime'
     assert data_type.db_type == 'Date'
-    assert data_type.db_module == 'sqlalchemy.sql.sqltypes'
+    assert data_type.db_module == 'sqlalchemy.types'
     assert data_type.pydantic_type is None
 
-    data_type.add_pydantic_type(EmailStr)
+    data_type.add_pydantic_type('EmailStr')
     assert data_type.pydantic_type == 'EmailStr'
-    data_type = DataType(python_type=date, db_type=Date, pydantic_type=EmailStr)
+    data_type = DataType(python_type=date, db_type='Date', db_module='sqlalchemy.types', pydantic_type='EmailStr')
     assert data_type.pydantic_type == 'EmailStr'
 
 
@@ -40,6 +30,12 @@ def test_template_model_str():
     with pytest.raises(ValueError) as e:
         TemplateModel(name='wrong name')
     assert 'Name most follow snake_case rule' in str(e.value)
+    with pytest.raises(ValueError) as e:
+        TemplateModel(name='1name')
+    assert 'Name most follow snake_case rule' in str(e.value)
+    with pytest.raises(ValueError) as e:
+        TemplateModel(name='MyName')
+    assert 'Name most follow snake_case rule' in str(e.value)
 
 
 def test_attribute_creation():
@@ -48,6 +44,9 @@ def test_attribute_creation():
     assert attribute.type == string_type
     assert attribute.default == 'default'
     assert attribute.unique is True
+    with pytest.raises(ValueError) as e:
+        Attribute(name='wrong name', type=string_type)
+    assert 'Name most follow snake_case rule' in str(e.value)
 
 
 def test_relationship_creation_error(app_obj: AppObject):
@@ -101,9 +100,12 @@ def test_app_object(app_objs: list[AppObject], atts: list[Attribute]):
     # checking probably needs to be only on "MANY" side with foreign key
     rel3 = obj.relationships[3]
     assert obj.is_relationship_self(rel3) is True
-    with pytest.raises(AttributeError) as e:
+    with pytest.raises(AttributeError) as e_1:
         rel_obj1.is_relationship_many(rel3)
-    assert 'Relationship not associated with object!' in str(e.value)
+    assert 'Relationship not associated with object!' in str(e_1.value)
+    with pytest.raises(ValueError) as e_2:
+        AppObject('wrong name', *atts)
+    assert 'Name most follow snake_case rule' in str(e_2.value)
 
 
 def test_app_config(atts: list[Attribute]):
