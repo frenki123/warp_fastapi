@@ -34,7 +34,7 @@ class TypedNameConfig(TypedDict):
     app_foldername: NotRequired[str]
 
 
-class NameConfig:
+class StructureConfig:
     database_file: str = 'database'
     base_file: str = 'base'
     dependency_file: str = 'dependancies'
@@ -73,7 +73,7 @@ class NameConfig:
             if hasattr(self, key):
                 setattr(self, key, value)
             else:
-                raise AttributeError(f"'NameConfig' object has no attribute '{key}'")
+                raise AttributeError(f"'StructureConfig' object has no attribute '{key}'")
 
     def get_database_filename(self) -> str:
         return Path(self.database_file).name
@@ -294,7 +294,7 @@ class NameConfig:
         return path
 
 
-config_kludex = NameConfig(
+clean_arch_config = StructureConfig(
     database_file='core/database',
     base_file='models/base',
     dependency_file='api/deps',

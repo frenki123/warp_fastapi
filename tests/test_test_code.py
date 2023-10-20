@@ -1,12 +1,12 @@
 from warp_fastapi import AppObject, Attribute
 from warp_fastapi.code.code_objects.tests import ConfTestModuleCode, TestModuleCode as TModuleCode
-from warp_fastapi.config import NameConfig
+from warp_fastapi.config import StructureConfig
 
 from .conftest import assert_code_lines
 
 
 def test_conftest_code(app_objs_with_rel: tuple[AppObject, AppObject]):
-    m = ConfTestModuleCode(list(app_objs_with_rel), NameConfig())
+    m = ConfTestModuleCode(list(app_objs_with_rel), StructureConfig())
     r = """
 import pytest
 from sqlalchemy import create_engine
@@ -53,7 +53,7 @@ def test_tmodule_code(app_objs_with_rel: tuple[AppObject, AppObject], complex_in
     obj1 = app_objs_with_rel[0]
     obj1.add_attributes(complex_int_att)
     obj2 = app_objs_with_rel[1]
-    m = TModuleCode([obj1, obj2], NameConfig())
+    m = TModuleCode([obj1, obj2], StructureConfig())
     r = (
         """
 import pytest

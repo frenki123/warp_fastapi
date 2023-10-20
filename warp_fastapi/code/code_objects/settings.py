@@ -1,9 +1,9 @@
-from ...config import NameConfig
+from ...config import StructureConfig
 from .base import SimpleModuleCode
 
 
 class SettingsModuleCode(SimpleModuleCode):
-    def __init__(self, config: NameConfig, project_name: str):
+    def __init__(self, config: StructureConfig, project_name: str):
         self.folder = config.get_settings_folder()
         self.filename = config.get_settings_filename()
         self.project_name = project_name

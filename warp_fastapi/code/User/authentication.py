@@ -1,7 +1,7 @@
-from ...config import NameConfig
+from ...config import StructureConfig
 
 
-def get_authentication_code(config: NameConfig = NameConfig()) -> str:
+def get_authentication_code(config: StructureConfig = StructureConfig()) -> str:
     return f"""from fastapi import HTTPException, status
 from jose import jwt, JWTError
 from datetime import datetime, timedelta

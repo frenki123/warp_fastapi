@@ -1,12 +1,12 @@
 from warp_fastapi import AppObject
 from warp_fastapi.code.code_objects.service import ServiceModuleCode
-from warp_fastapi.config import NameConfig
+from warp_fastapi.config import StructureConfig
 
 from .conftest import assert_code_lines
 
 
 def test_simple_service(app_obj: AppObject):
-    m = ServiceModuleCode(app_obj, NameConfig())
+    m = ServiceModuleCode(app_obj, StructureConfig())
     r = """
 from ..schemas.app_schema import AppCreate, AppDatabase, AppEdit, AppResponse
 from ..repository.app_repository import AppRepository
@@ -42,7 +42,7 @@ def get_app_service(db: Session):
 # noqa: E501
 def test_complex_service(app_objs_with_rel: tuple[AppObject, AppObject]):
     obj = app_objs_with_rel[0]
-    m = ServiceModuleCode(obj, NameConfig())
+    m = ServiceModuleCode(obj, StructureConfig())
     return_service_line = (
         'return Object1Service(Object1Repository(db), '
         'object2_repository=Object2Repository(db), '

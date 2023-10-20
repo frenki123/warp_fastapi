@@ -1,11 +1,11 @@
 from warp_fastapi.code.alembic.alembic import get_alembic_env_code
-from warp_fastapi.config import NameConfig, config_kludex
+from warp_fastapi.config import StructureConfig, clean_arch_config
 
 from .conftest import assert_code_lines
 
 
 def test_alembic_code():
-    config = NameConfig()
+    config = StructureConfig()
     m1 = get_alembic_env_code(config)
     r1 = """import os
 from logging.config import fileConfig
@@ -98,7 +98,7 @@ else:
 """
     assert_code_lines(m1, r1)
 
-    m2 = get_alembic_env_code(config_kludex)
+    m2 = get_alembic_env_code(clean_arch_config)
     r2 = """import os
 from logging.config import fileConfig
 from dotenv import load_dotenv

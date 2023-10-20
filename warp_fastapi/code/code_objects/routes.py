@@ -1,12 +1,12 @@
 from ... import AppObject, AuthObject
-from ...config import NameConfig
+from ...config import StructureConfig
 from .base import (
     SimpleModuleCode,
 )
 
 
 class RoutesModuleCode(SimpleModuleCode):
-    def __init__(self, app_obj: AppObject, config: NameConfig = NameConfig()):
+    def __init__(self, app_obj: AppObject, config: StructureConfig = StructureConfig()):
         self.folder = config.get_route_folder(app_obj)
         self.filename = config.get_route_filename(app_obj)
         self.name = app_obj.name
@@ -98,13 +98,13 @@ def delete_{self.name}(
 
 
 class MainRouterCode(SimpleModuleCode):
-    def __init__(self, app_objects: list[AppObject], config: NameConfig = NameConfig()):
+    def __init__(self, app_objects: list[AppObject], config: StructureConfig = StructureConfig()):
         self.folder = config.get_main_route_folder()
         self.filename = config.get_main_route_filename()
         self.routes: list[str] = []
         self.fill_routes(app_objects, config)
 
-    def fill_routes(self, app_objects: list[AppObject], config: NameConfig) -> None:
+    def fill_routes(self, app_objects: list[AppObject], config: StructureConfig) -> None:
         use_login_route = False
         for obj in app_objects:
             if isinstance(obj, AuthObject):
@@ -132,7 +132,7 @@ router = APIRouter()
 
 
 class LoginRouteModule(SimpleModuleCode):
-    def __init__(self, auth_obj: AuthObject, config: NameConfig = NameConfig()):
+    def __init__(self, auth_obj: AuthObject, config: StructureConfig = StructureConfig()):
         self.folder = config.get_login_route_folder()
         self.filename = config.get_login_route_filename()
         self.dependency_module = config.get_module_for_login_route(config.get_dependency_path())

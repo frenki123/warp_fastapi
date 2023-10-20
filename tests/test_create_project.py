@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from warp_fastapi import AppProject
-from warp_fastapi.config import NameConfig
+from warp_fastapi.config import StructureConfig
 from warp_fastapi.create_project import ProjectCreator
 
 
@@ -45,7 +45,7 @@ def test_poject_creator_init(app_proj: AppProject, tmp_path: Path):
 
 
 def test_project_creation_wird_config(app_proj: AppProject, tmp_path: Path):
-    config = NameConfig(
+    config = StructureConfig(
         model_file='{name}/{name}_model',
         database_file='database/database',
         route_file='api/v1/route_{name}',

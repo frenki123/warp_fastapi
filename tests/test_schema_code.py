@@ -1,13 +1,13 @@
 from warp_fastapi import AppObject, Attribute
 from warp_fastapi.code.code_objects.schema import AttributeCode, CommonSchemaModule, RelationshipCode, SchemaModuleCode
-from warp_fastapi.config import NameConfig
+from warp_fastapi.config import StructureConfig
 from warp_fastapi.data_types import email_type
 
 from .conftest import assert_code_lines
 
 
 def test_common_schema():
-    config = NameConfig()
+    config = StructureConfig()
     m = CommonSchemaModule(config)
     r = """
 from pydantic import AnyUrl, BaseModel, Field
@@ -59,7 +59,7 @@ def test_relationship_code(app_objs_with_rel: tuple[AppObject, AppObject]):
 
 def test_module_code(app_objs_with_rel: tuple[AppObject, AppObject]):
     obj1 = app_objs_with_rel[0]
-    m1 = SchemaModuleCode(obj1, config=NameConfig())
+    m1 = SchemaModuleCode(obj1, config=StructureConfig())
     print(m1)
     r1 = """
 from __future__ import annotations

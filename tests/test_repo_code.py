@@ -1,12 +1,12 @@
 from warp_fastapi import AppObject
 from warp_fastapi.code.code_objects.repository import RepoBaseModule, RepoModuleCode
-from warp_fastapi.config import NameConfig
+from warp_fastapi.config import StructureConfig
 
 from .conftest import assert_code_lines
 
 
 def test_base_repo_module():
-    config = NameConfig()
+    config = StructureConfig()
     m = RepoBaseModule(config)
     r = """
 from sqlalchemy.orm import Session
@@ -98,7 +98,7 @@ class Repository:
 
 
 def test_repo_code(app_obj: AppObject):
-    config = NameConfig()
+    config = StructureConfig()
     m = RepoModuleCode(app_obj, config)
     print(m)
     r = """

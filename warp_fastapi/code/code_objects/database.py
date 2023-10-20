@@ -1,10 +1,10 @@
 from ... import AppObject
-from ...config import NameConfig
+from ...config import StructureConfig
 from .base import SimpleModuleCode
 
 
 class DatabaseModuleCode(SimpleModuleCode):
-    def __init__(self, config: NameConfig):
+    def __init__(self, config: StructureConfig):
         self.folder = config.get_database_folder()
         self.filename = config.get_database_filename()
         self.settings_module = config.get_module_for_database(config.get_settings_path())
@@ -25,7 +25,7 @@ class Base(DeclarativeBase):
 
 
 class BaseModuleCode(SimpleModuleCode):
-    def __init__(self, objects: list[AppObject], config: NameConfig):
+    def __init__(self, objects: list[AppObject], config: StructureConfig):
         self.folder = config.get_base_folder()
         self.filename = config.get_base_filename()
         self.database_module = config.get_module_for_base(config.get_database_path())

@@ -1,7 +1,7 @@
-from ...config import NameConfig
+from ...config import StructureConfig
 
 
-def get_dockerfile(config: NameConfig) -> str:
+def get_dockerfile(config: StructureConfig) -> str:
     return """FROM python:3
 
 WORKDIR /app

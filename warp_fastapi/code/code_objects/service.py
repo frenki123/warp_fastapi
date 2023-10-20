@@ -1,7 +1,7 @@
 from typing import Literal
 
 from ... import AppObject
-from ...config import NameConfig
+from ...config import StructureConfig
 from .base import (
     AbstractClassCode,
     AbstractFunctionCode,
@@ -13,7 +13,7 @@ from .base import (
 
 
 class ServiceInitFunction(AbstractFunctionCode):
-    def __init__(self, app_obj: AppObject, config: NameConfig):
+    def __init__(self, app_obj: AppObject, config: StructureConfig):
         self.name = '__init__'
         self.parametars = [
             SimpleVariable('self'),
@@ -22,7 +22,7 @@ class ServiceInitFunction(AbstractFunctionCode):
         self.content = ''
         self.get_data(app_obj, config)
 
-    def get_data(self, app_obj: AppObject, config: NameConfig) -> None:
+    def get_data(self, app_obj: AppObject, config: StructureConfig) -> None:
         content: list[AbstractVariableCode] = [SimpleVariable('self.repository', value='repository')]
         for rel in app_obj.all_relationships:
             obj = app_obj.get_rel_obj(rel)
@@ -38,7 +38,7 @@ class ServiceInitFunction(AbstractFunctionCode):
 
 
 class ServiceIdSearchFunc(AbstractFunctionCode):
-    def __init__(self, app_obj: AppObject, config: NameConfig):
+    def __init__(self, app_obj: AppObject, config: StructureConfig):
         self.name = '_get_id_data'
         self.parametars = [
             SimpleVariable('self'),
@@ -48,7 +48,7 @@ class ServiceIdSearchFunc(AbstractFunctionCode):
         ]
         self.content = self.get_content(app_obj, config)
 
-    def get_content(self, app_obj: AppObject, config: NameConfig) -> str:
+    def get_content(self, app_obj: AppObject, config: StructureConfig) -> str:
         init_vars: list[str] = []
         search_vars: list[str] = []
         return_vars: list[str] = []
@@ -76,7 +76,7 @@ class ServiceIdSearchFunc(AbstractFunctionCode):
 
 
 class ServicePrapareDBFucn(AbstractFunctionCode):
-    def __init__(self, app_obj: AppObject, config: NameConfig):
+    def __init__(self, app_obj: AppObject, config: StructureConfig):
         self.name = '_prepare_db_data'
         self.parametars = [
             SimpleVariable('self'),
@@ -86,7 +86,7 @@ class ServicePrapareDBFucn(AbstractFunctionCode):
         ]
         self.content = self.get_content(app_obj, config)
 
-    def get_content(self, app_obj: AppObject, config: NameConfig) -> str:
+    def get_content(self, app_obj: AppObject, config: StructureConfig) -> str:
         var_params: list[str] = []
         dict_params: list[str] = []
         id_params: list[str] = []
@@ -112,7 +112,7 @@ class ServiceGetCode(AbstractFunctionCode):
 
 
 class ServiceActionCode(AbstractFunctionCode):
-    def __init__(self, app_obj: AppObject, action: Literal['create', 'edit', 'update'], config: NameConfig):
+    def __init__(self, app_obj: AppObject, action: Literal['create', 'edit', 'update'], config: StructureConfig):
         self.name = f'{action}_{app_obj.name}'
         obj_type = config.get_edit_cls_schema(app_obj)
         if action != 'edit':
@@ -160,7 +160,7 @@ return db_results
 
 
 class ServiceClassCode(AbstractClassCode):
-    def __init__(self, app_obj: AppObject, config: NameConfig):
+    def __init__(self, app_obj: AppObject, config: StructureConfig):
         self.class_name = config.get_service_classname(app_obj)
         self.attributes = []
         self.methods = [ServiceInitFunction(app_obj, config)]
@@ -180,7 +180,7 @@ class ServiceClassCode(AbstractClassCode):
 
 
 class GetServiceFunc(SimpleFunctionCode):
-    def __init__(self, app_obj: AppObject, config: NameConfig):
+    def __init__(self, app_obj: AppObject, config: StructureConfig):
         self.name = f'get_{app_obj.name}_service'
         self.parametars = [SimpleVariable('db', 'Session')]
         return_params = [f'{config.get_repo_classname(app_obj)}(db)']
@@ -191,7 +191,7 @@ class GetServiceFunc(SimpleFunctionCode):
 
 
 class ServiceModuleCode(AbstractModuleCode):
-    def __init__(self, app_obj: AppObject, config: NameConfig):
+    def __init__(self, app_obj: AppObject, config: StructureConfig):
         self.type_checking_imports = {}
         self.classes = []
         self.functions = [GetServiceFunc(app_obj, config)]
@@ -221,7 +221,7 @@ class ServiceModuleCode(AbstractModuleCode):
 {self.functions_code}
 """
 
-    def fill_imports(self, app_obj: AppObject, config: NameConfig) -> None:
+    def fill_imports(self, app_obj: AppObject, config: StructureConfig) -> None:
         for rel in app_obj.all_relationships:
             obj = app_obj.get_rel_obj(rel)
             class_name = config.get_repo_classname(obj)

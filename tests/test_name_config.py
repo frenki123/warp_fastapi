@@ -3,11 +3,11 @@ from pathlib import Path
 import pytest
 
 from warp_fastapi import AppObject
-from warp_fastapi.config import NameConfig
+from warp_fastapi.config import StructureConfig
 
 
 def test_main_config(app_obj: AppObject):
-    config = NameConfig()
+    config = StructureConfig()
     assert config.get_database_filename() == 'database'
     assert config.get_database_folder() == '.'
     assert config.get_database_path() == 'database'
@@ -71,7 +71,7 @@ def test_main_config(app_obj: AppObject):
 
 
 def test_wird_config(app_obj: AppObject):
-    config = NameConfig(database_file='database/folder2/main', model_file='{name}/model_{name}')
+    config = StructureConfig(database_file='database/folder2/main', model_file='{name}/model_{name}')
     # assert standard which will be chagned later with update
     assert config.get_schema_filename(app_obj) == 'app_schema'
     assert config.get_schema_folder(app_obj) == 'schemas'
@@ -101,5 +101,5 @@ def test_wird_config(app_obj: AppObject):
     assert config.get_base_cls_schema(app_obj) == 'appSomethingElse'
 
     with pytest.raises(AttributeError) as e:
-        NameConfig(wrong_key='something')  # type: ignore [call-arg]
-    assert "'NameConfig' object has no attribute 'wrong_key'" in str(e)
+        StructureConfig(wrong_key='something')  # type: ignore [call-arg]
+    assert "'StructureConfig' object has no attribute 'wrong_key'" in str(e)

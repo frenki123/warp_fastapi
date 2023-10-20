@@ -1,8 +1,8 @@
 from ordered_set import OrderedSet
 
 from ... import AppObject, Attribute
+from ...config import StructureConfig
 from ...relationships import BackpopulatesRelationship, Relationship
-from ...config import NameConfig
 from .base import (
     AbstractModuleCode,
     AbstractVariableCode,
@@ -53,7 +53,7 @@ class RelationshipCode(AbstractVariableCode):
 
 
 class SchemaModuleCode(AbstractModuleCode):
-    def __init__(self, app_obj: AppObject, config: NameConfig = NameConfig()):
+    def __init__(self, app_obj: AppObject, config: StructureConfig = StructureConfig()):
         self.type_checking_imports = {}
         self.classes = []
         self.functions = []
@@ -86,7 +86,7 @@ class SchemaModuleCode(AbstractModuleCode):
                 else:
                     self.imports[att.type.python_module] = {att.type.python_type}
 
-    def get_schema_classes(self, app_obj: AppObject, config: NameConfig = NameConfig()) -> None:
+    def get_schema_classes(self, app_obj: AppObject, config: StructureConfig = StructureConfig()) -> None:
         id = SimpleVariable('id', 'int')
         orm_config = SimpleVariable('model_config', value='ConfigDict(from_attributes=True)')
         # data_att: set[AbstractVariableCode] = {id, orm_config}
@@ -157,7 +157,7 @@ def find_base_att(*sets: OrderedSet[AbstractVariableCode]) -> OrderedSet[Abstrac
 
 
 class CommonSchemaModule(SimpleModuleCode):
-    def __init__(self, config: NameConfig, secure: bool = False):
+    def __init__(self, config: StructureConfig, secure: bool = False):
         self.filename = config.get_common_schema_filename()
         self.folder = config.get_common_schema_folder()
         self.token = ''

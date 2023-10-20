@@ -1,12 +1,12 @@
 from warp_fastapi import AppObject
 from warp_fastapi.code.code_objects.routes import MainRouterCode, RoutesModuleCode
-from warp_fastapi.config import NameConfig
+from warp_fastapi.config import StructureConfig
 
 from .conftest import assert_code_lines
 
 
 def test_routes_code(app_obj: AppObject):
-    config = NameConfig()
+    config = StructureConfig()
     m = RoutesModuleCode(app_obj, config)
     print(m)
     r = (
@@ -76,7 +76,7 @@ def delete_app(
 
 
 def test_main_router(app_objs: list[AppObject]):
-    config = NameConfig()
+    config = StructureConfig()
     m = MainRouterCode(app_objs, config)
     print(m)
     r = """

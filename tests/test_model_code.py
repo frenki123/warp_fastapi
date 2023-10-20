@@ -8,7 +8,7 @@ from warp_fastapi.code.code_objects.model import (
     ModelModuleCode,
     RelationshipCode,
 )
-from warp_fastapi.config import NameConfig
+from warp_fastapi.config import StructureConfig
 from warp_fastapi.relationships import BackpopulatesRelationship, many_to_many, many_to_one, one_to_many, one_to_one
 
 from .conftest import assert_code_lines
@@ -144,7 +144,7 @@ def test_model_class(app_objs_with_rel: tuple[AppObject, AppObject]):
 def test_model_module(app_objs_with_rel: tuple[AppObject, AppObject]):
     obj1 = app_objs_with_rel[0]
     obj2 = app_objs_with_rel[1]
-    config = NameConfig()
+    config = StructureConfig()
     m1 = ModelModuleCode(obj1, config)
     assoc_table_line = (
         "object4_object1_association = Table('object4_object1',Base.metadata,Column"

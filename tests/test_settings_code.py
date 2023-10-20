@@ -1,11 +1,11 @@
 from warp_fastapi.code.code_objects.settings import SettingsModuleCode
-from warp_fastapi.config import NameConfig
+from warp_fastapi.config import StructureConfig
 
 from .conftest import assert_code_lines
 
 
 def test_settings_module():
-    config = NameConfig()
+    config = StructureConfig()
     m = SettingsModuleCode(config, 'NEW_PROJECT_NAME')
     r = """
 import secrets

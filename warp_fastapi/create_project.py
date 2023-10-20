@@ -21,8 +21,8 @@ from .code.code_objects.security import SecurityModuleCode
 from .code.code_objects.service import ServiceModuleCode
 from .code.code_objects.settings import SettingsModuleCode
 from .code.code_objects.tests import ConfTestModuleCode, TestModuleCode
-from .config import NameConfig
 from .code.devops import docker, dotenv, git, local
+from .config import StructureConfig
 
 
 class ProjectCreator:
@@ -30,7 +30,7 @@ class ProjectCreator:
         self,
         project: AppProject,
         project_dir: str = '.',
-        config: NameConfig = NameConfig(),
+        config: StructureConfig = StructureConfig(),
         requirements: list[str] = [],
         deployment: Literal['Docker', 'local'] = 'local',
     ):

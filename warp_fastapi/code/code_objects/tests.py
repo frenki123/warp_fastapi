@@ -1,8 +1,8 @@
 import json
 
 from ... import AppObject, Attribute, AuthObject
+from ...config import StructureConfig
 from ...relationships import many_to_many
-from ...config import NameConfig
 from .base import (
     AbstractModuleCode,
     SimpleDecoratorCode,
@@ -16,7 +16,7 @@ pytest_dec = SimpleDecoratorCode(
 
 
 class ConfTestModuleCode(AbstractModuleCode):
-    def __init__(self, app_objs: list[AppObject], config: NameConfig, secure: bool = False):
+    def __init__(self, app_objs: list[AppObject], config: StructureConfig, secure: bool = False):
         self.type_checking_imports = {}
         self.classes = []
         self.functions = list(self.get_client_functions(secure))
@@ -121,7 +121,7 @@ with TestClient(base_client) as c:
 
 
 class TestModuleCode(AbstractModuleCode):
-    def __init__(self, app_objs: list[AppObject], config: NameConfig):
+    def __init__(self, app_objs: list[AppObject], config: StructureConfig):
         self.type_checking_imports = {}
         self.classes = []
         self.functions = []

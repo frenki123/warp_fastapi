@@ -1,12 +1,12 @@
 from ... import AppProject
-from ...config import NameConfig
+from ...config import StructureConfig
 from .base import (
     SimpleModuleCode,
 )
 
 
 class MainModuleCode(SimpleModuleCode):
-    def __init__(self, project: AppProject, config: NameConfig = NameConfig()):
+    def __init__(self, project: AppProject, config: StructureConfig = StructureConfig()):
         self.folder = ''
         self.filename = 'main'
         self.settings_module = config.get_module_for_main(config.get_settings_path())

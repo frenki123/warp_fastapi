@@ -1,10 +1,10 @@
 from ... import AuthObject
-from ...config import NameConfig
+from ...config import StructureConfig
 from .base import SimpleModuleCode
 
 
 class SecurityModuleCode(SimpleModuleCode):
-    def __init__(self, auth_obj: AuthObject, config: NameConfig):
+    def __init__(self, auth_obj: AuthObject, config: StructureConfig):
         self.folder = config.get_security_folder()
         self.filename = config.get_security_filename()
         self.settings_module = config.get_module_for_security(config.get_settings_path())

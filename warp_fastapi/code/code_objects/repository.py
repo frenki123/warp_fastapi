@@ -1,5 +1,5 @@
 from ... import AppObject
-from ...config import NameConfig
+from ...config import StructureConfig
 from .base import (
     AbstractModuleCode,
     SimpleClassCode,
@@ -10,7 +10,7 @@ from .base import (
 
 
 class RepoModuleCode(AbstractModuleCode):
-    def __init__(self, app_obj: AppObject, config: NameConfig):
+    def __init__(self, app_obj: AppObject, config: StructureConfig):
         self.type_checking_imports = {}
         self.classes = []
         self.functions = []
@@ -43,7 +43,7 @@ class RepoModuleCode(AbstractModuleCode):
 
 
 class RepoBaseModule(SimpleModuleCode):
-    def __init__(self, config: NameConfig):
+    def __init__(self, config: StructureConfig):
         self.folder = config.get_repository_main_folder()
         self.filename = config.get_repository_main_filename()
         self.database_module = config.get_module_for_repository_main(config.get_database_path())

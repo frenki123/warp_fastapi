@@ -1,12 +1,12 @@
 from warp_fastapi import AppProject
 from warp_fastapi.code.code_objects.main import MainModuleCode
-from warp_fastapi.config import NameConfig
+from warp_fastapi.config import StructureConfig
 
 from .conftest import assert_code_lines
 
 
 def test_main_module(app_proj: AppProject):
-    config = NameConfig()
+    config = StructureConfig()
     m = MainModuleCode(app_proj, config)
     r = """
 from fastapi import FastAPI

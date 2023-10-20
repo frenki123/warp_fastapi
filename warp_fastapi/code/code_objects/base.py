@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from typing import Any
 
 from ... import AppObject
-from ...config import NameConfig
+from ...config import StructureConfig
 from ..utils import ident_text
 
 
@@ -165,7 +165,7 @@ class SimpleClassCode(AbstractClassCode):
 class AbstractModuleCode(ABC):
     folder: str
     filename: str
-    config: NameConfig
+    config: StructureConfig
     imports: dict[str, set[str]] = {}
     type_checking_imports: dict[str, set[str]] = {}
     classes: list[AbstractClassCode] = []
@@ -220,7 +220,7 @@ if TYPE_CHECKING:
 
 class SimpleModuleCode(AbstractModuleCode):
     @abstractmethod
-    def __init__(self, config: NameConfig, app_obj: AppObject | None = None):
+    def __init__(self, config: StructureConfig, app_obj: AppObject | None = None):
         pass  # pragma: no cover
 
     @abstractmethod

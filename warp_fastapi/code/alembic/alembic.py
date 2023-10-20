@@ -1,7 +1,7 @@
-from ...config import NameConfig
+from ...config import StructureConfig
 
 
-def get_alembic_ini_code(config: NameConfig) -> str:
+def get_alembic_ini_code(config: StructureConfig) -> str:
     return f"""# A generic, single database configuration.
 
 [alembic]
@@ -150,7 +150,7 @@ def get_alembic_readme() -> str:
     return 'Generic single-database configuration.'
 
 
-def get_alembic_env_code(config: NameConfig) -> str:
+def get_alembic_env_code(config: StructureConfig) -> str:
     base_module = config.get_module_for_alembic(config.get_base_path())
     return f"""import os
 from logging.config import fileConfig

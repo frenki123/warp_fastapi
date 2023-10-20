@@ -1,12 +1,12 @@
 from warp_fastapi import AppObject
 from warp_fastapi.code.code_objects.database import BaseModuleCode, DatabaseModuleCode
-from warp_fastapi.config import NameConfig
+from warp_fastapi.config import StructureConfig
 
 from .conftest import assert_code_lines
 
 
 def test_db_module():
-    config = NameConfig()
+    config = StructureConfig()
     config.settings_file = 'test_settings'
     m = DatabaseModuleCode(config)
     r = """from sqlalchemy import create_engine
@@ -25,7 +25,7 @@ class Base(DeclarativeBase):
 
 
 def test_base_db_module(app_objs: list[AppObject]):
-    config = NameConfig()
+    config = StructureConfig()
     m = BaseModuleCode(app_objs, config)
     r = """from .database import Base # noqa
 from .models.obj1_model import Obj1 # noqa

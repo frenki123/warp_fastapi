@@ -1,10 +1,10 @@
 from ... import AuthObject
-from ...config import NameConfig
+from ...config import StructureConfig
 from .base import SimpleModuleCode
 
 
 class DependanciesModuleCode(SimpleModuleCode):
-    def __init__(self, config: NameConfig, auth_obj: AuthObject | None = None):
+    def __init__(self, config: StructureConfig, auth_obj: AuthObject | None = None):
         self.folder = config.get_dependency_folder()
         self.filename = config.get_dependency_filename()
         self.db_module = config.get_module_for_dependency(config.get_database_path())
@@ -57,7 +57,7 @@ def get_current_user(
 """
 
     @staticmethod
-    def _get_sec_import_string(auth_obj: AuthObject | None, config: NameConfig) -> str:
+    def _get_sec_import_string(auth_obj: AuthObject | None, config: StructureConfig) -> str:
         if not auth_obj:
             return ''
         settings_module = config.get_module_for_dependency(config.get_settings_path())

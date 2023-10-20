@@ -1,6 +1,6 @@
 from ... import AppObject, Attribute
+from ...config import StructureConfig
 from ...relationships import BackpopulatesRelationship, Relationship, many_to_many, one_to_one
-from ...config import NameConfig
 from .base import (
     AbstractClassCode,
     AbstractFunctionCode,
@@ -120,7 +120,7 @@ class ModelClassCode(AbstractClassCode):
 
 
 class ModelModuleCode(AbstractModuleCode):
-    def __init__(self, app_obj: AppObject, config: NameConfig = NameConfig()):
+    def __init__(self, app_obj: AppObject, config: StructureConfig = StructureConfig()):
         self.config = config
         self.folder = config.get_model_folder(app_obj)
         self.filename = config.get_model_filename(app_obj)
