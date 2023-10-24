@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "warp_fastapi"
-version = "0.1.beta2"
+version = "0.1.1a1"
 description = "Create fastapi in a warp speed"
 authors = ["frenki123 <marko.frankola@gmail.com>"]
 license = "MIT"
